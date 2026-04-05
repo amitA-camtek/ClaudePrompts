@@ -1,7 +1,7 @@
-# AOI Main State — Prompt 1: Codebase Discovery
+# Falcon.Net State Shell — Prompt 1: Codebase Discovery
 
-> **Goal:** Understand the current AOI_Main structure and identify every integration point  
-> that will feed into the state model before proposing any solution.  
+> **Goal:** Understand the current `AOI_Main` + `Falcon.Net` structure, identify every integration point,  
+> and capture current callback ownership before proposing any solution.  
 > **Run this first.** Do not propose solutions yet — only gather facts.
 
 ---
@@ -9,17 +9,22 @@
 You are a **senior software architect**.  
 You have access to the Camtek Falcon monorepo (`CamtekGit`). The `system.md` document has already been produced and describes the top-level architecture.
 
-Your task now is to **deeply analyze the `AOI_Main` component** inside `BIS/Sources/TestAutomationAPI/AOI_Main/` and answer every question below with **exact file paths, class names, method signatures, and existing event/callback mechanisms** found in the code.
+Your task now is to deeply analyze:
+- `BIS/Sources/apps/Falcon.Net/` (producer side, COM callback owner candidate)
+
+Answer every question below with exact file paths, class names, method signatures, and existing event/callback mechanisms found in code.
 
 ---
 
-## Section 1 — AOI_Main Structure
+## Section 1 — AOI_Main + Falcon.Net Structure
 
-1. What is the **entry point** of `AOI_Main`? (exe / library / test runner?)
+1. What is the **entry point** of `AOI_Main`? (exe)
 2. What is the **top-level class** that orchestrates the system? List all its public members.
-3. How is `AOI_Main` **launched** — standalone, hosted inside `RunnerGui`, or called by `TestAutomationSDK`?
+3. How is `AOI_Main` **launched** — standalone?
 4. What **dependencies** does `AOI_Main` reference? (DLLs from `c:\bis\bin\`, COM servers, WCF proxies, any direct BIS module reference)
 5. Does `AOI_Main` currently have **any state model** (class, enum, dictionary, flags)? List it exactly.
+6. In `Falcon.Net`, what class currently registers Falcon wrapper callbacks (`IFalconEvents` / `Register*Event`), and where is lifecycle managed?
+7. Which side currently owns callback sink instances (`IAutoCycleManagerCB`, `IScanManagerCB`, `IFalconGuiCB`) — AOI_Main, Falcon.Net, or both?
 
 ---
 
@@ -114,6 +119,19 @@ After your analysis, explicitly state:
 
 ---
 
+## Section 6 — Migration Baseline (Facts Only)
+
+Produce an ownership baseline for moving the state shell into `Falcon.Net`:
+
+1. What files/classes must move from AOI_Main-side assumptions to Falcon.Net-side ownership?
+2. What files/classes must remain in AOI_Main as consumer adapters only?
+3. Which class should own COM callback registration after migration (`RegisterScanEvent`, `RegisterAutoCycleEvent`, `RegisterFalconGuiEvent`)?
+4. Which COM sink interfaces are currently implemented in Falcon.Net and can be reused vs must be added?
+
+Do not propose implementation yet — only factual mapping from current code.
+
+---
+
 ## Output Format
 
 Produce a **structured findings document** with one section per domain above. Use this exact structure:
@@ -135,5 +153,17 @@ End with a **Constraints Summary** table:
 |---|---|---|
 | COM STA thread | ... | ... |
 | ... | ... | ... |
+
+Then add two mandatory tables:
+
+### Move / Keep Map
+| Item | Current location | Target owner (`Falcon.Net` / `AOI_Main`) | Rationale (fact-based) |
+|---|---|---|---|
+
+### COM Callback Ownership Map
+| Callback family | Register API | Current owner class | Target owner class (for migration) | Notes |
+|---|---|---|---|---|
+
+save it to structured_findings.md 
 
 Do NOT propose solutions yet. Only facts.

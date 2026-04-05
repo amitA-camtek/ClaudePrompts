@@ -1,6 +1,7 @@
-# AOI Main State Engine — Prompt Series
+# Falcon.Net State Shell — Prompt Series
 
-> **Purpose:** Design and implement a non-blocking, event-driven state model for `AOI_Main`  
+> **Purpose:** Design and implement a non-blocking, event-driven state shell **owned by `Falcon.Net`**,  
+> with `AOI_Main` as a consumer/adapter,  
 > covering 8 operational domains in the Camtek Falcon BIS system.  
 > **Runtime target:** .NET Framework 4.8 / C# 7.3  
 > **Run prompts in order — each one depends on the output of the previous.**
@@ -26,10 +27,10 @@
 
 | File | Phase | Goal | Input needed |
 |---|---|---|---|
-| [`01_aoi_state_discovery.md`](01_aoi_state_discovery.md) | Discovery | Map every integration point, threading model, existing event infrastructure | Access to `AOI_Main` source + BIS source |
-| [`02_aoi_state_alternatives.md`](02_aoi_state_alternatives.md) | Architecture | 3 alternatives evaluated: Redux store / Rx.NET / Event Aggregator | Prompt 1 findings |
-| [`03_aoi_state_design.md`](03_aoi_state_design.md) | Design | Win architecture selected, full class design, threading spec, integration map | Prompt 2 evaluation |
-| [`04_aoi_state_implementation.md`](04_aoi_state_implementation.md) | Implementation | Code generation phase-by-phase, unit tests, integration wiring | Prompt 3 design doc |
+| [`01_aoi_state_discovery.md`](01_aoi_state_discovery.md) | Discovery | Map integration points in both `AOI_Main` and `Falcon.Net`, plus current callback ownership | Access to `AOI_Main` + `Falcon.Net` source |
+| [`02_aoi_state_alternatives.md`](02_aoi_state_alternatives.md) | Architecture | 3 alternatives evaluated for a **Falcon.Net-owned** state shell | Prompt 1 findings |
+| [`03_aoi_state_design.md`](03_aoi_state_design.md) | Design | Winning architecture + full move map + COM callback ownership transfer plan | Prompt 2 evaluation |
+| [`04_aoi_state_implementation.md`](04_aoi_state_implementation.md) | Implementation | Generate code phase-by-phase in Falcon.Net + AOI_Main adapter/wiring | Prompt 3 design doc |
 
 ---
 
@@ -40,6 +41,7 @@
 - **No new external dependencies:** stays within .NET 4.8 BCL + existing BIS libraries
 - **Testable without hardware:** stub bridges allow full CI testing
 - **Familiar pattern:** mirrors Prism EventAggregator already used in MDC and SystemCalibration
+- **Ownership boundary:** COM callback registration and state shell lifecycle are owned by `Falcon.Net`, not `AOI_Main`
 
 ---
 
@@ -48,7 +50,7 @@
 After completing all 4 prompts:
 
 ```
-AOI_Main.StateEngine/
+Falcon.Net.StateShell/
 ├── AoiThreadOption.cs
 ├── AoiStatePayloadBase.cs
 ├── Payloads/
@@ -78,8 +80,11 @@ AOI_Main.StateEngine/
     ├── CmmBridge.cs
     └── DieEditBridge.cs
 
-AOI_Main.StateEngine.Tests/
+Falcon.Net.StateShell.Tests/
 ├── AoiEventAggregatorTests.cs
 ├── BridgeOrchestratorTests.cs
 └── AoiStateEngineIntegrationTest.cs
+
+AOI_Main.StateShellAdapter/
+└── Thin consumer adapter (subscribe/query API only; no COM callback registration)
 ```

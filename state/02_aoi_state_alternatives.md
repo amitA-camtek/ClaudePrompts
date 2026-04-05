@@ -1,7 +1,7 @@
-# AOI Main State — Prompt 2: Alternative Solutions
+# Falcon.Net State Shell — Prompt 2: Alternative Solutions
 
 > **Prerequisites:** `01_aoi_state_discovery.md` findings are complete and in hand.  
-> **Goal:** Propose **3 distinct architectural alternatives** for the AOI_Main state model.  
+> **Goal:** Propose **3 distinct architectural alternatives** for a `Falcon.Net`-owned state shell.  
 > Evaluate each honestly. Do not pick a winner yet — that is Prompt 3.
 
 ---
@@ -13,7 +13,7 @@ You have completed the discovery phase (Prompt 1) and now have a full picture of
 - The existing event infrastructure (COM events, WCF duplex callbacks, RabbitMQ, `GrabIPC`/`AcqIPC`/`DdsIPC`)
 - The constraints (frozen COM interfaces, WCF contracts, latency requirements)
 
-Now propose **3 alternative architectures** for the AOI_Main state system. Each must be:
+Now propose **3 alternative architectures** for a `Falcon.Net`-managed state. Each must be:
 - **Non-blocking** — never stalls the COM STA pump, grabbing pipeline, or UI thread
 - **Event-driven** — consumers subscribe to state changes; polling is not acceptable
 - **Composable** — the 8 domains can be observed independently or together
@@ -256,11 +256,11 @@ var currentScan = _stateCache.Current.Scan;
   (mitigated by `AoiStateCache` companion)
 - No composability across domains without manual coordination (unlike Rx `CombineLatest`)
 - Global event bus can become an untraceable "who published this?" debugging problem at scale
-- If Prism is not already referenced by `AOI_Main` / `TestAutomationSDK`, it adds a dependency (though a well-understood one)
+- If Prism is not already referenced by `Falcon.Net`, it adds a dependency (though a well-understood one)
 
 ### .NET Framework 4.8 Compatibility Notes
 - Prism 6.x supports .NET Framework 4.8 ✅  
-- Can also implement a **custom lightweight event aggregator** with zero dependencies (100 lines of C#) if adding Prism to `AOI_Main` is undesirable
+- Can also implement a **custom lightweight event aggregator** with zero dependencies (100 lines of C#) if adding Prism to `Falcon.Net` is undesirable
 
 ---
 
@@ -298,5 +298,9 @@ Produce a **scored comparison document** for Prompt 3, structured as:
 2. The filled evaluation matrix with your scores and justification
 3. Two or three sentences on whether the Hybrid option is worth pursuing
 4. The **2 alternatives you recommend taking to Prompt 3** for detailed design
+5. A short migration impact note per alternative:
+    - What moves into `Falcon.Net`
+    - What remains in `AOI_Main`
+    - Who owns COM callback registration after migration
 
 Do NOT write implementation code yet.

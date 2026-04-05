@@ -1,4 +1,4 @@
-# AOI Main State — Prompt 3: Solution Selection & Full Design
+# Falcon.Net State Shell — Prompt 3: Solution Selection & Full Design
 
 > **Prerequisites:** Prompt 1 discovery findings + Prompt 2 evaluation matrix are complete.  
 > **Goal:** Select the winning architecture, then produce the **complete design** —  
@@ -8,7 +8,7 @@
 ---
 
 You are a **senior software architect**.  
-Based on the discovery findings (Prompt 1) and the alternative evaluation (Prompt 2), select the best architecture for the AOI_Main state system and produce a full design.
+Based on the discovery findings (Prompt 1) and the alternative evaluation (Prompt 2), select the best architecture for a `Falcon.Net`-owned state shell and produce a full design.
 
 ---
 
@@ -20,11 +20,12 @@ State the chosen architecture and justify it in terms of:
 2. **Which constraints from Prompt 1 it best satisfies** (COM threading, .NET 4.8, no new deps, latency)
 3. **Which trade-offs you are explicitly accepting** and why they are acceptable
 4. **Whether the Hybrid (Event Aggregator + AoiStateCache + thin Rx wrapper) is adopted** — and which parts
+5. **Ownership boundary after migration**: what is owned by `Falcon.Net` vs what remains in `AOI_Main`
 
 Format as an **Architecture Decision Record (ADR)**:
 
 ```markdown
-## ADR-001: AOI_Main State Architecture
+## ADR-001: Falcon.Net State Shell Architecture
 
 **Status:** Accepted  
 **Date:** [today]  
@@ -128,7 +129,7 @@ AoiEventAggregator : IAoiEventAggregator
 
 ### 2.4 Bridge Adapters (one per domain)
 
-Each bridge:
+Each bridge (hosted by `Falcon.Net` state shell):
 - Wires to the **existing** COM event / WCF callback / IPC channel (from Prompt 1 findings)
 - Converts raw BIS data to the typed payload
 - Calls `_eventAggregator.Publish()` — never blocks
@@ -223,7 +224,7 @@ return immediately ✓
 
 ---
 
-## Step 4 — Integration Map
+## Step 4 — Integration & Ownership Map
 
 For each of the 8 domains, specify the **exact integration point** (from Prompt 1 findings) and how the bridge connects to it:
 
@@ -240,6 +241,27 @@ For each of the 8 domains, specify the **exact integration point** (from Prompt 
 | Die Edit | `DieEdit.sln` | `[FILL FROM PROMPT 1]` | `DieEditBridge.OnDieEditApplied()` | WaferId, DieCoord, EditType |
 
 Instruction: fill every `[FILL FROM PROMPT 1]` cell with the exact COM interface/event name, TCP message type, or WCF operation discovered in Prompt 1.
+
+### 4.1 Ownership Transfer Map (MANDATORY)
+
+Provide a concrete move map for migration to Falcon.Net:
+
+| Item | Current location | New location | Action (Move / Wrap / Keep) |
+|---|---|---|---|
+| State shell bootstrap | ... | ... | ... |
+| COM callback registration | ... | ... | ... |
+| `IAutoCycleManagerCB` sink ownership | ... | ... | ... |
+| `IScanManagerCB` sink ownership | ... | ... | ... |
+| `IFalconGuiCB` sink ownership | ... | ... | ... |
+| AOI_Main consumer API/adapters | ... | ... | ... |
+
+Add a second table with exact callback ownership after migration:
+
+| Callback family | Register method | Owner class in Falcon.Net | Downstream publisher |
+|---|---|---|---|
+| Scan | `RegisterScanEvent` | ... | ... |
+| Robot/CMM | `RegisterAutoCycleEvent` | ... | ... |
+| GUI/Job/Camera | `RegisterFalconGuiEvent` | ... | ... |
 
 ---
 
