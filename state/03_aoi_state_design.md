@@ -8,11 +8,19 @@
 ---
 
 You are a **senior software architect**.  
-Based on the discovery findings (Prompt 1) and the alternative evaluation (Prompt 2), select the best architecture for a `Falcon.Net`-owned state shell and produce a full design.
+Based on the discovery findings (structured_findings.md) and the alternative evaluation (alternatives_comparison.md), select the best architecture for a `Falcon.Net`-owned state shell and produce a full design.
 
 ---
 
 ## Step 1 — Architecture Decision
+
+**IMPORTANT:** This step must **create/write the output file first**. Do not only return the ADR in chat/output text.
+
+Execution requirement:
+1. Create or overwrite the design output file at `state_shell_design.md`
+2. Write the ADR section into that file first
+3. Then append the remaining sections of the design document in order
+4. If full document generation fails partway, the file must still contain at least the completed ADR section
 
 State the chosen architecture and justify it in terms of:
 
@@ -32,7 +40,7 @@ Format as an **Architecture Decision Record (ADR)**:
 **Deciders:** [list]
 
 ### Context
-[2-3 sentences from Prompt 1 discovery]
+Summarize the key findings from `state/output/01_structured_findings.md` and `state/output/02_alternatives_comparison.md`.
 
 ### Decision
 [chosen approach in one sentence]
@@ -225,6 +233,25 @@ return immediately ✓
 ---
 
 ## Step 4 — Integration & Ownership Map
+### 4.0 Write Protocol (MANDATORY — prevents Section 4 file-write failures)
+
+Section 4 is large. Write it in **checkpoints**, not one large response.
+
+Required write sequence:
+1. Append only **Step 4 header + Integration table** and save.
+2. Append only **4.1 Ownership Transfer Map** and save.
+3. Append only **4.2 Module Change Plan** and save.
+4. Append only **4.3 End-to-End Sequences** and save.
+5. After each append, verify the file still exists and content is preserved.
+
+If writing fails at any checkpoint:
+- Retry that checkpoint once.
+- If it still fails, write a fallback checkpoint file:
+    - `state_shell_design.step4_checkpoint.md`
+- Then continue with remaining checkpoints.
+
+Completion rule for this step:
+- Step 4 is considered complete only when all subsections (4.0–4.3) are written to file.
 
 For each of the 8 domains, specify the **exact integration point** (from Prompt 1 findings) and how the bridge connects to it:
 
@@ -262,6 +289,51 @@ Add a second table with exact callback ownership after migration:
 | Scan | `RegisterScanEvent` | ... | ... |
 | Robot/CMM | `RegisterAutoCycleEvent` | ... | ... |
 | GUI/Job/Camera | `RegisterFalconGuiEvent` | ... | ... |
+
+### 4.2 Module Change Plan (MANDATORY — exact files/classes/lines)
+
+For **each domain module** (`Scan/Grab`, `Color Grab`, `Robot Setup`, `Camera & Lights / Illumination Change`, `Job Created/Deleted`, `Alignment`, `Clean Reference`, `CMM`, `Die Edit`), provide the exact code-change plan using this table:
+
+| Domain | Project | File path | Class | Method / member | Current lines (`Lx-Ly`) | Change type (Add/Edit/Move/Delete) | New owner (`Falcon.Net` / `AOI_Main`) | Notes |
+|---|---|---|---|---|---|---|---|---|
+
+Rules:
+- **No placeholders** allowed in this table.
+- `Current lines` must be exact line ranges from the analyzed codebase (e.g., `L184-L236`).
+- If a line range truly cannot be resolved, write `UNRESOLVED` and explain why in `Notes`.
+- Explicitly include callback registration edits (`RegisterScanEvent`, `RegisterAutoCycleEvent`, `RegisterFalconGuiEvent`) and AOI_Main adapter-side consumer edits.
+
+### 4.3 End-to-End Sequences (MANDATORY — state shell → AOI_Main)
+
+Provide one sequence per domain showing the runtime path from producer callback to AOI_Main consumer.
+
+Format requirement (repeat for each domain):
+
+```markdown
+#### Sequence — [Domain]
+1. [Falcon.Net callback source + exact class.method]
+2. [Bridge mapping method + payload type]
+3. [`AoiEventAggregator.Publish<TEvent>` call]
+4. [AOI_Main adapter subscribe method]
+5. [AOI_Main consuming class/method]
+
+Mermaid:
+sequenceDiagram
+    participant Src as Falcon.Net Callback Source
+    participant Br as [Bridge Class]
+    participant Agg as AoiEventAggregator
+    participant Adp as AOI_Main Adapter
+    participant Cons as AOI_Main Consumer
+    Src->>Br: callback(args)
+    Br->>Agg: Publish([DomainEvent])
+    Agg-->>Adp: dispatch([DomainEvent])
+    Adp-->>Cons: state update / query result
+```
+
+Coverage requirement:
+- Must include all 8 domains listed above.
+- For each sequence, include exact class + method names on both Falcon.Net and AOI_Main sides.
+- For each sequence, include thread context annotation (`COM callback thread`, `ThreadPool`, `UI/consumer thread`).
 
 ---
 
@@ -305,13 +377,21 @@ Produce a **Design Document** containing:
 2. All data type definitions (Section 2 — precise field names, types, enums)
 3. The threading invariants table
 4. The completed integration map (with Prompt 1 findings filled in)
-5. The testability contract
-6. A **one-page architecture summary diagram** (ASCII or Mermaid) showing:
+5. The completed module change plan with exact file/class/line ranges (Section 4.2)
+6. The 8 end-to-end sequences from state shell to AOI_Main (Section 4.3)
+7. The testability contract
+8. A **one-page architecture summary diagram** (ASCII or Mermaid) showing:
    - The 8 BIS source components
    - The 8 bridge adapters
    - The `AoiEventAggregator`
    - `AoiStateSnapshot`
    - Consumer examples (ViewModel, TestRunner, Logger)
    - Thread boundaries clearly marked
+
+Save the final document to:
+
+`state_shell_design.md`
+
+Do not stop after printing the document in chat/output text — the result is only considered complete after the file above is written.
 
 This document is the **input to Prompt 4** (implementation).

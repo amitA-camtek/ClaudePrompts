@@ -8,7 +8,7 @@
 ---
 
 You are a **senior software engineer**.  
-You have the approved design document from Prompt 3. Now implement it.  
+You have the approved design document from (state_shell_design.md). Now implement it.  
 All code targets **.NET Framework 4.8 / C# 7.3** (the BIS constraint).  
 No `record` types. No C# 9+ features. Use `class` with readonly fields.
 
@@ -785,6 +785,36 @@ This test requires **no hardware**, **no COM servers**, **no WCF services**.
 
 ---
 
+## Phase 5.1 — Implementation Traceability Artifacts (MANDATORY)
+
+Along with code generation, produce these implementation artifacts:
+
+### A) Exact Change Log (all domains)
+
+For each domain (`Scan/Grab`, `Color Grab`, `Robot Setup`, `Camera & Lights / Illumination Change`, `Job Created/Deleted`, `Alignment`, `Clean Reference`, `CMM`, `Die Edit`), output this table with **real changed locations**:
+
+| Domain | Project | File path | Class | Method/member | Changed lines (`Lx-Ly`) | Change type (Add/Edit/Move/Delete) | Owner (`Falcon.Net` / `AOI_Main`) |
+|---|---|---|---|---|---|---|---|
+
+Rules:
+- No placeholders.
+- `Changed lines` must reference actual modified ranges.
+- If a required location was not changed, include it with `Change type = Keep` and explain why.
+
+### B) End-to-End Runtime Sequences (8 mandatory)
+
+For each domain, output the concrete runtime sequence from producer callback to AOI_Main consumption:
+
+1. Falcon.Net callback source (`Class.Method`)
+2. Bridge mapping method (`Class.Method`)
+3. `AoiEventAggregator.Publish<TEvent>` call site
+4. AOI_Main adapter subscribe/query method (`Class.Method`)
+5. AOI_Main consumer handler (`Class.Method`)
+
+For each sequence, include thread context tags: `[COM callback thread]`, `[ThreadPool]`, `[consumer thread]`.
+
+---
+
 ## Delivery Checklist
 
 Before marking this prompt complete, verify:
@@ -798,6 +828,8 @@ Before marking this prompt complete, verify:
 - [ ] No `Thread.Sleep`, no `Thread.Join`, no blocking `await` in any bridge's event handler path
 - [ ] `log4net` logger created per class (not a static global)
 - [ ] Project compiles without warnings on LangVersion `7.3`
+- [ ] Exact Change Log table completed with real `Lx-Ly` ranges for all domains
+- [ ] 8 end-to-end runtime sequences documented (state shell → AOI_Main)
 
 ---
 
@@ -814,3 +846,21 @@ Run this prompt in the following sequence:
    - Lower: Clean Reference, Die Edit
 5. **Phase 4** — wire into Falcon.Net entry point; verify AOI_Main consumes state via adapter only
 6. **Phase 5** — run integration test suite in CI (headless, stub mode)
+
+---
+
+## Output Files (MANDATORY)
+
+Save the generated outputs to:
+
+1. `implementation_delivery.md`  
+    - Phase-by-phase implementation decisions
+    - MoveMap + CallbackOwnershipTable
+    - Exact Change Log + 8 end-to-end sequences
+
+2. `codegen_manifest.md`  
+    - Full list of created/edited files
+    - Per-file summary and changed line ranges
+
+3. `test_results.md`  
+    - Unit/integration test execution summary and outcomes

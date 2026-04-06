@@ -8,7 +8,7 @@
 ---
 
 You are a **senior software engineer**.  
-You have the approved design document from Prompt 3. Now implement it.  
+You have the approved design document from (state_shell_design.md). Now implement it.  
 All code targets **.NET Framework 4.8 / C# 7.3** (the BIS constraint).  
 No `record` types. No C# 9+ features. Use `class` with readonly fields.
 
@@ -313,3 +313,21 @@ Run this prompt in the following sequence:
    - Lower: Clean Reference, Die Edit
 5. **Phase 4** — wire into Falcon.Net entry point; verify AOI_Main consumes state via adapter only
 6. **Phase 5** — run integration test suite in CI (headless, stub mode)
+
+---
+
+## Output Files (MANDATORY)
+
+Save the generated outputs to:
+
+1. `state/output/04_implementation_delivery.md`  
+    - Phase-by-phase implementation decisions
+    - MoveMap + CallbackOwnershipTable
+    - Exact Change Log + 8 end-to-end sequences
+
+2. `state/output/04_codegen_manifest.md`  
+    - Full list of created/edited files
+    - Per-file summary and changed line ranges
+
+3. `state/output/04_test_results.md`  
+    - Unit/integration test execution summary and outcomes

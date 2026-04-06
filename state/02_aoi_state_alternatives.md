@@ -7,7 +7,7 @@
 ---
 
 You are a **senior software architect**.  
-You have completed the discovery phase (Prompt 1) and now have a full picture of:
+You have completed the discovery phase (structured_findings.md) and now have a full picture of:
 - The 8 state domains (Scan/Grab, Robot, Camera/Lights, Job, Alignment, Clean Reference, CMM, Die Edit)
 - The existing threading model (COM STA/MTA, UI thread, grabbing pipeline)
 - The existing event infrastructure (COM events, WCF duplex callbacks, RabbitMQ, `GrabIPC`/`AcqIPC`/`DdsIPC`)
@@ -302,5 +302,9 @@ Produce a **scored comparison document** for Prompt 3, structured as:
     - What moves into `Falcon.Net`
     - What remains in `AOI_Main`
     - Who owns COM callback registration after migration
+
+Save the final document to:
+
+`alternatives_comparison.md`
 
 Do NOT write implementation code yet.

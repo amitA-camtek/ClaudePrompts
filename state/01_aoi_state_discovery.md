@@ -164,6 +164,8 @@ Then add two mandatory tables:
 | Callback family | Register API | Current owner class | Target owner class (for migration) | Notes |
 |---|---|---|---|---|
 
-save it to structured_findings.md 
+Save the final document to:
+
+`structured_findings.md`
 
 Do NOT propose solutions yet. Only facts.
