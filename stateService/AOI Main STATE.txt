@@ -1,0 +1,20 @@
+AOI Main STATE
+
+base on the output/system.md and the code.
+
+i want to create to the AOI_Main a state:
+the state represents the :
+1. the scan /grab / Color grabbing 
+2. the robot setup
+3. camera and lights / Illumination change
+4. Job created / deleted
+5. Alignment modification
+6. Clean reference
+7. CMM
+8. Die edit modification
+
+the solution shell be non-blocking 
+the state shell updated when a any changed, 
+and shell notify by event about the change 
+
+create a series of prompts for cloud to give few solutions find the best a solution include design and plane. 
