@@ -1,0 +1,2135 @@
+﻿[
+    {
+        "FullPath":  "C:\\job\\status.ini",
+        "Ext":  ".ini",
+        "SizeB":  75,
+        "Modified":  "2026-04-07 18:13",
+        "Created":  "2025-12-02 14:18",
+        "FirstLine":  "[UC_PROGRAM]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\Metadata.ini",
+        "Ext":  ".ini",
+        "SizeB":  94,
+        "Modified":  "2026-03-03 15:44",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\DefaultWafer2Table.ini",
+        "Ext":  ".ini",
+        "SizeB":  1134,
+        "Modified":  "2026-03-03 14:10",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[WAFER ALIGNMENT]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\DefectsClustering.ini",
+        "Ext":  ".ini",
+        "SizeB":  236,
+        "Modified":  "2026-03-03 13:51",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\DieAlignment.dat_block.ini",
+        "Ext":  ".ini",
+        "SizeB":  119,
+        "Modified":  "2026-03-03 19:03",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Metadata.ini",
+        "Ext":  ".ini",
+        "SizeB":  93,
+        "Modified":  "2026-03-03 19:03",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\MultiRecipe.ini",
+        "Ext":  ".ini",
+        "SizeB":  335,
+        "Modified":  "2026-03-03 18:43",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[Scan]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\ProductionInfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  134,
+        "Modified":  "2026-03-03 13:57",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\ScanCondition.ini",
+        "Ext":  ".ini",
+        "SizeB":  23,
+        "Modified":  "2026-03-03 13:59",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Wafer2Table.ini",
+        "Ext":  ".ini",
+        "SizeB":  1134,
+        "Modified":  "2026-03-03 19:02",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[WAFER ALIGNMENT]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\Alignment.ini",
+        "Ext":  ".ini",
+        "SizeB":  53,
+        "Modified":  "2026-04-06 19:02",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[WAFER ALIGNMENT]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\AlignmentData.ini",
+        "Ext":  ".ini",
+        "SizeB":  820,
+        "Modified":  "2026-03-03 13:51",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\AlignRtp.ini",
+        "Ext":  ".ini",
+        "SizeB":  2983,
+        "Modified":  "2026-03-03 19:02",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[DIE Alignment]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\CcsLocalMeas.ini",
+        "Ext":  ".ini",
+        "SizeB":  210,
+        "Modified":  "2026-03-03 12:41",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[ScanParams]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\CleanReferenceConfiguration.ini",
+        "Ext":  ".ini",
+        "SizeB":  605,
+        "Modified":  "2026-03-03 13:57",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\CleanReferenceFinalParams.ini",
+        "Ext":  ".ini",
+        "SizeB":  1055,
+        "Modified":  "2026-03-03 13:49",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\CreateReference3dOptions.ini",
+        "Ext":  ".ini",
+        "SizeB":  415,
+        "Modified":  "2026-03-03 12:53",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\DefaultWafer2Table.ini",
+        "Ext":  ".ini",
+        "SizeB":  1119,
+        "Modified":  "2026-03-03 13:48",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[WAFER ALIGNMENT]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\DieAlignment.dat_block.ini",
+        "Ext":  ".ini",
+        "SizeB":  119,
+        "Modified":  "2026-03-03 13:48",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\DieMapAlignRes.dat_block.ini",
+        "Ext":  ".ini",
+        "SizeB":  119,
+        "Modified":  "2026-03-03 13:48",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\DieMapRegPos.txt",
+        "Ext":  ".txt",
+        "SizeB":  350,
+        "Modified":  "2026-03-03 13:45",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "ScaleX =    1.0000000000; ScaleY =    1.0000000000",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\DieRegPos.txt",
+        "Ext":  ".txt",
+        "SizeB":  350,
+        "Modified":  "2026-03-03 13:45",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "ScaleX =    1.0000000000; ScaleY =    1.0000000000",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\ExternalCoordSystems.ini",
+        "Ext":  ".ini",
+        "SizeB":  33,
+        "Modified":  "2026-03-03 12:41",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[ExternalCoordSystems]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\GlobalRTP.ini",
+        "Ext":  ".ini",
+        "SizeB":  3205,
+        "Modified":  "2026-03-03 13:51",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[GLOBAL_RTP]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\ImageProcessing.log",
+        "Ext":  ".log",
+        "SizeB":  37,
+        "Modified":  "2026-03-03 13:46",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "_previouseAlignmentDataExists = 1",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\JobIllumLimits.ini",
+        "Ext":  ".ini",
+        "SizeB":  84,
+        "Modified":  "2026-03-15 14:36",
+        "Created":  "2026-03-15 14:36",
+        "FirstLine":  "[AMITA1]",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\Metadata.ini",
+        "Ext":  ".ini",
+        "SizeB":  72,
+        "Modified":  "2026-03-03 12:41",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\OpticPreset.ini",
+        "Ext":  ".ini",
+        "SizeB":  1547,
+        "Modified":  "2026-03-15 14:36",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[IllumConversion]",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\OpticToVCamStorage.json",
+        "Ext":  ".json",
+        "SizeB":  546,
+        "Modified":  "2026-03-03 19:02",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\OverlayScan.ini",
+        "Ext":  ".ini",
+        "SizeB":  52,
+        "Modified":  "2026-03-03 12:41",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\Params_AlignRTP.ini",
+        "Ext":  ".ini",
+        "SizeB":  2982,
+        "Modified":  "2026-03-03 13:46",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[DIE Alignment]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\Params_SystemInfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  2395,
+        "Modified":  "2026-03-03 13:46",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[SystemParams]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\Params_WaferInfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  1391,
+        "Modified":  "2026-03-03 13:46",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[Path]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\ProductInfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  3195,
+        "Modified":  "2026-04-07 17:38",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[AutoFocus]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\Recipe.ini",
+        "Ext":  ".ini",
+        "SizeB":  373,
+        "Modified":  "2026-04-06 18:59",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[AutoCycle]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\ReferencesInfo.json",
+        "Ext":  ".json",
+        "SizeB":  281,
+        "Modified":  "2026-03-03 19:02",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "{",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\RTP.txt",
+        "Ext":  ".txt",
+        "SizeB":  5326,
+        "Modified":  "2026-03-03 13:51",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[PostProcess]   ; Zone name",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\SamplingMetrology.ini",
+        "Ext":  ".ini",
+        "SizeB":  73,
+        "Modified":  "2026-03-03 12:41",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\ScanOverlapLog.txt",
+        "Ext":  ".txt",
+        "SizeB":  450,
+        "Modified":  "2026-03-03 19:02",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "Scan 2d Overlap [px], [um]; Pixel size = 0.858, 0.86",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\ScanOverviewImage_Recipes-R1.txt",
+        "Ext":  ".txt",
+        "SizeB":  321,
+        "Modified":  "2026-03-03 13:48",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[ScanOverviewImage]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\ScenariosMetadatas.ini",
+        "Ext":  ".ini",
+        "SizeB":  1471,
+        "Modified":  "2026-03-03 13:28",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\s_FrameData.dat.md",
+        "Ext":  ".md",
+        "SizeB":  2346,
+        "Modified":  "2026-03-03 13:48",
+        "Created":  "2026-03-15 14:31",
+        "FirstLine":  "\u003croot\u003e\u003cRecordSize Size=\"160\"/\u003e\u003cFields\u003e\u003cField Name=\"frameIdx\" Id=\"1073741824\" Off",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\UniqueArea.ini",
+        "Ext":  ".ini",
+        "SizeB":  375,
+        "Modified":  "2026-03-03 13:45",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\Wafer2Table.ini",
+        "Ext":  ".ini",
+        "SizeB":  1119,
+        "Modified":  "2026-04-07 17:38",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[WAFER ALIGNMENT]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\WaferDataReadSettings.xml",
+        "Ext":  ".xml",
+        "SizeB":  195,
+        "Modified":  "2026-03-03 12:41",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "\u003c?xml version=\"1.0\"?\u003e",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\Waferinfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  423,
+        "Modified":  "2026-04-07 16:46",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[Robot]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\WaferMapRecipe.ini",
+        "Ext":  ".ini",
+        "SizeB":  882,
+        "Modified":  "2026-03-03 13:36",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[GENERAL]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\WaferToRefWafer.ini",
+        "Ext":  ".ini",
+        "SizeB":  171,
+        "Modified":  "2026-03-03 14:10",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[WaferToRefWafer]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\zones.ini",
+        "Ext":  ".ini",
+        "SizeB":  264,
+        "Modified":  "2026-03-03 13:50",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\zones.txt",
+        "Ext":  ".txt",
+        "SizeB":  170,
+        "Modified":  "2026-03-03 13:50",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "ScaleX =    1.0000000000; ScaleY =    1.0000000000",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\ZoomLevels.ini",
+        "Ext":  ".ini",
+        "SizeB":  354,
+        "Modified":  "2026-03-03 13:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[ZOOM_LEVELS]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\.dc_cache\\TransactionsHistory.ini",
+        "Ext":  ".ini",
+        "SizeB":  462,
+        "Modified":  "2026-03-03 18:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[DeprecatedInV0]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\FocusMapping\\DieReferenceLocation.json",
+        "Ext":  ".json",
+        "SizeB":  4,
+        "Modified":  "2026-03-03 18:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "null",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\FocusMapping\\FocusMapping.ini",
+        "Ext":  ".ini",
+        "SizeB":  2537,
+        "Modified":  "2026-03-03 18:44",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[Mode]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\OpticLightMetadata\\config.ini",
+        "Ext":  ".ini",
+        "SizeB":  292,
+        "Modified":  "2026-03-03 19:02",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\ReferenceBackup\\ZoomLevels.ini",
+        "Ext":  ".ini",
+        "SizeB":  354,
+        "Modified":  "2026-03-03 13:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[ZOOM_LEVELS]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\SW_QA-5\\OpticsPreset.ini",
+        "Ext":  ".ini",
+        "SizeB":  109,
+        "Modified":  "2026-03-03 12:49",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[RobotSetup]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\TrainData\\Die.ini",
+        "Ext":  ".ini",
+        "SizeB":  1080,
+        "Modified":  "2026-03-03 13:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[DIE]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\TrainData\\DieRefToTrain.txt",
+        "Ext":  ".txt",
+        "SizeB":  206,
+        "Modified":  "2026-03-03 13:42",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[DieRefToTrainImage]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\TrainData\\FrameToChuck.ini",
+        "Ext":  ".ini",
+        "SizeB":  160,
+        "Modified":  "2026-03-03 13:41",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[FrameToChuck]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\TrainData\\DieImage\\DieImageToTable.ini",
+        "Ext":  ".ini",
+        "SizeB":  253,
+        "Modified":  "2026-03-03 13:42",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[DieImageToTable]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\TrainData\\DieImage\\ZoomLevels.ini",
+        "Ext":  ".ini",
+        "SizeB":  360,
+        "Modified":  "2026-03-03 13:41",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[ZOOM_LEVELS]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\WaferAlignData\\AlignmentData.ini",
+        "Ext":  ".ini",
+        "SizeB":  31,
+        "Modified":  "2026-04-07 16:46",
+        "Created":  "2026-04-07 16:46",
+        "FirstLine":  "[General]",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\WaferAlignData\\AlignmentStatisticsTime.txt",
+        "Ext":  ".txt",
+        "SizeB":  167,
+        "Modified":  "2026-04-07 16:46",
+        "Created":  "2026-04-07 16:46",
+        "FirstLine":  "Alignment Statistics",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\WaferAlignData\\Alignment_PatFindRtp.txt",
+        "Ext":  ".txt",
+        "SizeB":  742,
+        "Modified":  "2026-04-07 16:46",
+        "Created":  "2026-04-07 16:46",
+        "FirstLine":  "",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\WaferAlignData\\Alignment_PatRes.txt",
+        "Ext":  ".txt",
+        "SizeB":  1813,
+        "Modified":  "2026-04-07 16:46",
+        "Created":  "2026-04-07 16:46",
+        "FirstLine":  "",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\WaferAlignData\\Alignment_Stat.txt",
+        "Ext":  ".txt",
+        "SizeB":  444,
+        "Modified":  "2026-04-07 16:46",
+        "Created":  "2026-04-07 16:46",
+        "FirstLine":  "",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\Zones\\PostProcess.ini",
+        "Ext":  ".ini",
+        "SizeB":  2576,
+        "Modified":  "2026-03-03 13:51",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R1\\Zones\\Scan Area.ini",
+        "Ext":  ".ini",
+        "SizeB":  5706,
+        "Modified":  "2026-03-03 13:51",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\Alignment.ini",
+        "Ext":  ".ini",
+        "SizeB":  38,
+        "Modified":  "2026-03-03 13:51",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[WAFER ALIGNMENT]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\AlignmentData.ini",
+        "Ext":  ".ini",
+        "SizeB":  820,
+        "Modified":  "2026-03-03 19:01",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\AlignRtp.ini",
+        "Ext":  ".ini",
+        "SizeB":  2983,
+        "Modified":  "2026-03-03 19:02",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[DIE Alignment]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\CcsLocalMeas.ini",
+        "Ext":  ".ini",
+        "SizeB":  210,
+        "Modified":  "2026-03-03 12:41",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[ScanParams]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\CcsSetup.xml",
+        "Ext":  ".xml",
+        "SizeB":  166,
+        "Modified":  "2026-03-03 18:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "\u003cCcsSetupConfigurations VersionNumber=\"0.0\"\u003e",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\CleanReferenceConfiguration.ini",
+        "Ext":  ".ini",
+        "SizeB":  605,
+        "Modified":  "2026-03-03 17:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\CleanReferenceFinalParams.ini",
+        "Ext":  ".ini",
+        "SizeB":  1055,
+        "Modified":  "2026-03-03 13:49",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\CreateReference3dOptions.ini",
+        "Ext":  ".ini",
+        "SizeB":  415,
+        "Modified":  "2026-03-03 12:53",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\DefaultWafer2Table.ini",
+        "Ext":  ".ini",
+        "SizeB":  1119,
+        "Modified":  "2026-03-03 13:48",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[WAFER ALIGNMENT]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\DieAlignment.dat_block.ini",
+        "Ext":  ".ini",
+        "SizeB":  119,
+        "Modified":  "2026-03-03 18:44",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\DieMapAlignRes.dat_block.ini",
+        "Ext":  ".ini",
+        "SizeB":  119,
+        "Modified":  "2026-03-03 13:48",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\ExternalCoordSystems.ini",
+        "Ext":  ".ini",
+        "SizeB":  33,
+        "Modified":  "2026-03-03 12:41",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[ExternalCoordSystems]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\GlobalRTP.ini",
+        "Ext":  ".ini",
+        "SizeB":  3205,
+        "Modified":  "2026-03-03 13:51",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[GLOBAL_RTP]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\ImageProcessing.log",
+        "Ext":  ".log",
+        "SizeB":  37,
+        "Modified":  "2026-03-03 13:46",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "_previouseAlignmentDataExists = 1",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\Metadata.ini",
+        "Ext":  ".ini",
+        "SizeB":  72,
+        "Modified":  "2026-03-03 12:41",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\OpticPreset.ini",
+        "Ext":  ".ini",
+        "SizeB":  2302,
+        "Modified":  "2026-03-03 13:59",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[IllumConversion]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\OverlayScan.ini",
+        "Ext":  ".ini",
+        "SizeB":  52,
+        "Modified":  "2026-03-03 12:41",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\Params_AlignRTP.ini",
+        "Ext":  ".ini",
+        "SizeB":  2982,
+        "Modified":  "2026-03-03 13:46",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[DIE Alignment]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\Params_SystemInfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  2395,
+        "Modified":  "2026-03-03 13:46",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[SystemParams]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\Params_WaferInfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  1391,
+        "Modified":  "2026-03-03 13:46",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[Path]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\ProductInfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  3196,
+        "Modified":  "2026-03-03 19:02",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[AutoFocus]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\Recipe.ini",
+        "Ext":  ".ini",
+        "SizeB":  3971,
+        "Modified":  "2026-03-03 17:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[AutoCycle]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\ReferencesInfo.json",
+        "Ext":  ".json",
+        "SizeB":  281,
+        "Modified":  "2026-03-03 17:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "{",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\RTP.txt",
+        "Ext":  ".txt",
+        "SizeB":  5326,
+        "Modified":  "2026-03-03 13:51",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[PostProcess]   ; Zone name",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\SamplingMetrology.ini",
+        "Ext":  ".ini",
+        "SizeB":  73,
+        "Modified":  "2026-03-03 12:41",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\ScanOverlapLog.txt",
+        "Ext":  ".txt",
+        "SizeB":  450,
+        "Modified":  "2026-03-03 19:02",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "Scan 2d Overlap [px], [um]; Pixel size = 0.858, 0.86",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\ScanOverviewImage_Recipes-R1.txt",
+        "Ext":  ".txt",
+        "SizeB":  321,
+        "Modified":  "2026-03-03 13:48",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[ScanOverviewImage]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\ScenariosMetadatas.ini",
+        "Ext":  ".ini",
+        "SizeB":  1471,
+        "Modified":  "2026-03-03 14:08",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\s_FrameData.dat.md",
+        "Ext":  ".md",
+        "SizeB":  2346,
+        "Modified":  "2026-03-03 13:48",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "\u003croot\u003e\u003cRecordSize Size=\"160\"/\u003e\u003cFields\u003e\u003cField Name=\"frameIdx\" Id=\"1073741824\" Off",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\UniqueArea.ini",
+        "Ext":  ".ini",
+        "SizeB":  375,
+        "Modified":  "2026-03-03 19:01",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\Wafer2Table.ini",
+        "Ext":  ".ini",
+        "SizeB":  1119,
+        "Modified":  "2026-03-03 19:03",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[WAFER ALIGNMENT]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\WaferDataReadSettings.xml",
+        "Ext":  ".xml",
+        "SizeB":  195,
+        "Modified":  "2026-03-03 12:41",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "\u003c?xml version=\"1.0\"?\u003e",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\Waferinfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  408,
+        "Modified":  "2026-03-03 19:02",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[Robot]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\WaferMapRecipe.ini",
+        "Ext":  ".ini",
+        "SizeB":  882,
+        "Modified":  "2026-03-03 13:36",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[GENERAL]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\WaferToRefWafer.ini",
+        "Ext":  ".ini",
+        "SizeB":  171,
+        "Modified":  "2026-03-03 14:10",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[WaferToRefWafer]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\zones.ini",
+        "Ext":  ".ini",
+        "SizeB":  264,
+        "Modified":  "2026-03-03 13:50",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\zones.txt",
+        "Ext":  ".txt",
+        "SizeB":  170,
+        "Modified":  "2026-03-03 13:50",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "ScaleX =    1.0000000000; ScaleY =    1.0000000000",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\ZoomLevels.ini",
+        "Ext":  ".ini",
+        "SizeB":  354,
+        "Modified":  "2026-03-03 13:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[ZOOM_LEVELS]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\.dc_cache\\TransactionsHistory.ini",
+        "Ext":  ".ini",
+        "SizeB":  462,
+        "Modified":  "2026-03-03 18:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[DeprecatedInV0]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\FocusMapping\\DieReferenceLocation.json",
+        "Ext":  ".json",
+        "SizeB":  4,
+        "Modified":  "2026-03-03 18:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "null",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\FocusMapping\\FocusMapping.ini",
+        "Ext":  ".ini",
+        "SizeB":  2537,
+        "Modified":  "2026-03-03 18:44",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[Mode]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\OpticLightMetadata\\config.ini",
+        "Ext":  ".ini",
+        "SizeB":  292,
+        "Modified":  "2026-03-03 19:02",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\ReferenceBackup\\ZoomLevels.ini",
+        "Ext":  ".ini",
+        "SizeB":  354,
+        "Modified":  "2026-03-03 13:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[ZOOM_LEVELS]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\SW_QA-5\\OpticsPreset.ini",
+        "Ext":  ".ini",
+        "SizeB":  109,
+        "Modified":  "2026-03-03 12:49",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[RobotSetup]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\TrainData\\Die.ini",
+        "Ext":  ".ini",
+        "SizeB":  1080,
+        "Modified":  "2026-03-03 13:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[DIE]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\TrainData\\DieRefToTrain.txt",
+        "Ext":  ".txt",
+        "SizeB":  206,
+        "Modified":  "2026-03-03 13:42",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[DieRefToTrainImage]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\TrainData\\FrameToChuck.ini",
+        "Ext":  ".ini",
+        "SizeB":  160,
+        "Modified":  "2026-03-03 13:41",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[FrameToChuck]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\TrainData\\DieImage\\DieImageToTable.ini",
+        "Ext":  ".ini",
+        "SizeB":  253,
+        "Modified":  "2026-03-03 13:42",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[DieImageToTable]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\TrainData\\DieImage\\ZoomLevels.ini",
+        "Ext":  ".ini",
+        "SizeB":  360,
+        "Modified":  "2026-03-03 13:41",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[ZOOM_LEVELS]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\WaferAlignData\\AlignmentData.ini",
+        "Ext":  ".ini",
+        "SizeB":  32,
+        "Modified":  "2026-03-03 17:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\WaferAlignData\\AlignmentStatisticsTime.txt",
+        "Ext":  ".txt",
+        "SizeB":  168,
+        "Modified":  "2026-03-03 17:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "Alignment Statistics",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\WaferAlignData\\Alignment_PatFindRtp.txt",
+        "Ext":  ".txt",
+        "SizeB":  742,
+        "Modified":  "2026-03-03 17:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\WaferAlignData\\Alignment_PatRes.txt",
+        "Ext":  ".txt",
+        "SizeB":  1301,
+        "Modified":  "2026-03-03 17:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\WaferAlignData\\Alignment_Stat.txt",
+        "Ext":  ".txt",
+        "SizeB":  1410,
+        "Modified":  "2026-03-03 17:43",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\Zones\\PostProcess.ini",
+        "Ext":  ".ini",
+        "SizeB":  2576,
+        "Modified":  "2026-03-03 13:51",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\Diced_10.0.4511\\S1\\Recipes\\R2\\Zones\\Scan Area.ini",
+        "Ext":  ".ini",
+        "SizeB":  5706,
+        "Modified":  "2026-03-03 13:51",
+        "Created":  "2026-03-15 14:32",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\MetaData.ini",
+        "Ext":  ".ini",
+        "SizeB":  45,
+        "Modified":  "2026-03-11 16:46",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\DefectsClustering.ini",
+        "Ext":  ".ini",
+        "SizeB":  236,
+        "Modified":  "2026-03-11 16:45",
+        "Created":  "2026-03-11 16:45",
+        "FirstLine":  "[General]",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\MetaData.ini",
+        "Ext":  ".ini",
+        "SizeB":  37,
+        "Modified":  "2014-08-14 18:56",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\MultiRecipe.ini",
+        "Ext":  ".ini",
+        "SizeB":  121,
+        "Modified":  "2026-03-11 16:45",
+        "Created":  "2026-03-11 16:45",
+        "FirstLine":  "[Scan]",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\ProductionInfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  134,
+        "Modified":  "2026-03-11 16:45",
+        "Created":  "2026-03-11 16:45",
+        "FirstLine":  "[General]",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\WaferMapRecipe.ini",
+        "Ext":  ".ini",
+        "SizeB":  918,
+        "Modified":  "2026-03-11 16:45",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[GENERAL]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\AlignmentData.ini",
+        "Ext":  ".ini",
+        "SizeB":  852,
+        "Modified":  "2008-05-22 14:44",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[Point_0]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\AlignRtp.ini",
+        "Ext":  ".ini",
+        "SizeB":  1092,
+        "Modified":  "2008-05-22 14:44",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[GENERAL]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\CreateReference3dOptions.ini",
+        "Ext":  ".ini",
+        "SizeB":  415,
+        "Modified":  "2026-03-11 16:45",
+        "Created":  "2026-03-11 16:45",
+        "FirstLine":  "[General]",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\DieMapping.txt",
+        "Ext":  ".txt",
+        "SizeB":  3815,
+        "Modified":  "2008-05-22 14:44",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "                                                                                ",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\DieOffset.txt",
+        "Ext":  ".txt",
+        "SizeB":  36233,
+        "Modified":  "2008-05-22 14:44",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  " 14            1            1.1           .6",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\ExternalCoordSystems.ini",
+        "Ext":  ".ini",
+        "SizeB":  33,
+        "Modified":  "2015-05-18 14:42",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[ExternalCoordSystems]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\GlobalRTP.ini",
+        "Ext":  ".ini",
+        "SizeB":  1678,
+        "Modified":  "2015-05-17 18:02",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[GLOBAL_RTP]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\Job.dat",
+        "Ext":  ".dat",
+        "SizeB":  577,
+        "Modified":  "2015-05-18 14:36",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\ProductInfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  2509,
+        "Modified":  "2026-04-06 18:43",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\Recipe.ini",
+        "Ext":  ".ini",
+        "SizeB":  3943,
+        "Modified":  "2026-03-31 10:40",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\ReferencesInfo.json",
+        "Ext":  ".json",
+        "SizeB":  196,
+        "Modified":  "2026-03-11 16:45",
+        "Created":  "2026-03-11 16:45",
+        "FirstLine":  "{",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\RTP.txt",
+        "Ext":  ".txt",
+        "SizeB":  6054,
+        "Modified":  "2015-05-17 18:06",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[PostProcess]   ; Zone name",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\UniqueArea.ini",
+        "Ext":  ".ini",
+        "SizeB":  50,
+        "Modified":  "2008-05-22 14:42",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\WaferDataReadSettings.xml",
+        "Ext":  ".xml",
+        "SizeB":  195,
+        "Modified":  "2026-03-31 10:40",
+        "Created":  "2026-03-31 10:40",
+        "FirstLine":  "\u003c?xml version=\"1.0\"?\u003e",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\Waferinfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  640,
+        "Modified":  "2026-03-11 16:46",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\Zones.ini",
+        "Ext":  ".ini",
+        "SizeB":  632,
+        "Modified":  "2015-05-18 14:36",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[MultiProject]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\ZoomLevels.ini",
+        "Ext":  ".ini",
+        "SizeB":  359,
+        "Modified":  "2015-05-17 18:01",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[DIE]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\AMITA1\\OpticsPreset.ini",
+        "Ext":  ".ini",
+        "SizeB":  36,
+        "Modified":  "2026-04-06 18:43",
+        "Created":  "2026-03-11 16:45",
+        "FirstLine":  "[RobotSetup]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\FALCON_82134\\Alignment.ini",
+        "Ext":  ".ini",
+        "SizeB":  404,
+        "Modified":  "2008-05-22 14:44",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[WAFER ALIGNMENT]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\FALCON_82134\\DefaultAlign.ini",
+        "Ext":  ".ini",
+        "SizeB":  385,
+        "Modified":  "2008-05-22 14:44",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[WAFER ALIGNMENT]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\FALCON_82134\\OpticsPreset.ini",
+        "Ext":  ".ini",
+        "SizeB":  926,
+        "Modified":  "2008-05-22 16:18",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[RobotSetup]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\ProcessingRef\\TilePoolData.xml",
+        "Ext":  ".xml",
+        "SizeB":  437,
+        "Modified":  "2015-05-18 14:42",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "\u003c?xml version=\"1.0\"?\u003e",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\ProcessingRef\\Zones.ini",
+        "Ext":  ".ini",
+        "SizeB":  632,
+        "Modified":  "2015-05-18 14:36",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[MultiProject]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\ProcessingRef\\ZoomLevels.ini",
+        "Ext":  ".ini",
+        "SizeB":  359,
+        "Modified":  "2015-05-17 18:01",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[DIE]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\TrainData\\Die.ini",
+        "Ext":  ".ini",
+        "SizeB":  1809,
+        "Modified":  "2008-05-22 14:42",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[FRAME_MATRIX]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\Zones\\PostProcess.ini",
+        "Ext":  ".ini",
+        "SizeB":  1347,
+        "Modified":  "2015-05-17 18:02",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ScanAreaOnly\\Setup1\\Recipes\\Default\\Zones\\Scan Area.ini",
+        "Ext":  ".ini",
+        "SizeB":  3811,
+        "Modified":  "2015-05-18 14:45",
+        "Created":  "2026-03-11 16:21",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\Metadata.ini",
+        "Ext":  ".ini",
+        "SizeB":  92,
+        "Modified":  "2025-03-18 10:31",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\VcamInstallerGuid.txt",
+        "Ext":  ".txt",
+        "SizeB":  36,
+        "Modified":  "2025-03-18 12:05",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "0f79e46a-a13a-4779-8b21-541a64d4e0b7",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\CurrWaferSurfaceInterpolation.ini",
+        "Ext":  ".ini",
+        "SizeB":  3490,
+        "Modified":  "2025-03-18 11:57",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "ThinPlate",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\CurrWaferSurfaceInterpolation.md",
+        "Ext":  ".md",
+        "SizeB":  29,
+        "Modified":  "2025-03-18 11:53",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\DefectsClustering.ini",
+        "Ext":  ".ini",
+        "SizeB":  239,
+        "Modified":  "2025-11-13 13:45",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\DieAlignment.dat_block.ini",
+        "Ext":  ".ini",
+        "SizeB":  118,
+        "Modified":  "2026-04-08 00:45",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Metadata.ini",
+        "Ext":  ".ini",
+        "SizeB":  101,
+        "Modified":  "2025-03-18 09:34",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\MultiRecipe.ini",
+        "Ext":  ".ini",
+        "SizeB":  133,
+        "Modified":  "2025-03-18 09:34",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[Scan]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\ProductionInfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  195,
+        "Modified":  "2026-04-07 23:44",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Alignment.ini",
+        "Ext":  ".ini",
+        "SizeB":  53,
+        "Modified":  "2026-04-08 18:05",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[WAFER ALIGNMENT]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\AlignmentData.ini",
+        "Ext":  ".ini",
+        "SizeB":  820,
+        "Modified":  "2025-03-18 09:49",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\AlignRtp.ini",
+        "Ext":  ".ini",
+        "SizeB":  2985,
+        "Modified":  "2026-04-08 18:05",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[DIE Alignment]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\CcsLocalMeas.ini",
+        "Ext":  ".ini",
+        "SizeB":  209,
+        "Modified":  "2025-03-18 09:34",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[ScanParams]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\CleanReferenceFinalParams.ini",
+        "Ext":  ".ini",
+        "SizeB":  985,
+        "Modified":  "2025-03-18 09:47",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\CreateReference3dOptions.ini",
+        "Ext":  ".ini",
+        "SizeB":  322,
+        "Modified":  "2025-03-18 09:34",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\CurrWaferSurfaceInterpolation.ini",
+        "Ext":  ".ini",
+        "SizeB":  3455,
+        "Modified":  "2025-03-18 11:57",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "ThinPlate",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\CurrWaferSurfaceInterpolation.md",
+        "Ext":  ".md",
+        "SizeB":  29,
+        "Modified":  "2025-03-18 11:53",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\DefaultWafer2Table.ini",
+        "Ext":  ".ini",
+        "SizeB":  1123,
+        "Modified":  "2025-03-18 09:44",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[WAFER ALIGNMENT]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\DefaultWaferSurfaceInterpolation.ini",
+        "Ext":  ".ini",
+        "SizeB":  3460,
+        "Modified":  "2025-03-18 11:53",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "ThinPlate",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\DefaultWaferSurfaceInterpolation.md",
+        "Ext":  ".md",
+        "SizeB":  29,
+        "Modified":  "2025-03-18 11:53",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\DieAlignment.dat_block.ini",
+        "Ext":  ".ini",
+        "SizeB":  118,
+        "Modified":  "2025-03-18 09:44",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\DieMapAlignRes.dat_block.ini",
+        "Ext":  ".ini",
+        "SizeB":  118,
+        "Modified":  "2025-03-18 09:44",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\DieMapRegPos.txt",
+        "Ext":  ".txt",
+        "SizeB":  350,
+        "Modified":  "2025-03-18 09:47",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "ScaleX =    1.0000000000; ScaleY =    1.0000000000",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\DieRegPos.txt",
+        "Ext":  ".txt",
+        "SizeB":  470,
+        "Modified":  "2025-03-18 09:47",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "ScaleX =    1.0000000000; ScaleY =    1.0000000000",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\ExternalCoordSystems.ini",
+        "Ext":  ".ini",
+        "SizeB":  33,
+        "Modified":  "2025-03-18 09:34",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[ExternalCoordSystems]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\GlobalRTP.ini",
+        "Ext":  ".ini",
+        "SizeB":  2925,
+        "Modified":  "2025-03-18 10:00",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[GLOBAL_RTP]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\ImageProcessing.log",
+        "Ext":  ".log",
+        "SizeB":  37,
+        "Modified":  "2025-03-18 09:43",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "_previouseAlignmentDataExists = 0",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\JobIllumLimits.ini",
+        "Ext":  ".ini",
+        "SizeB":  84,
+        "Modified":  "2026-04-07 17:43",
+        "Created":  "2026-04-07 17:43",
+        "FirstLine":  "[AMITA1]",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Metadata.ini",
+        "Ext":  ".ini",
+        "SizeB":  152,
+        "Modified":  "2025-03-18 10:04",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\OpticPreset.ini",
+        "Ext":  ".ini",
+        "SizeB":  4244,
+        "Modified":  "2025-03-18 11:53",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\OpticToVCamStorage.json",
+        "Ext":  ".json",
+        "SizeB":  539,
+        "Modified":  "2025-03-18 12:00",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\OverlayScan.ini",
+        "Ext":  ".ini",
+        "SizeB":  52,
+        "Modified":  "2025-03-18 09:34",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Params_AlignRTP.ini",
+        "Ext":  ".ini",
+        "SizeB":  2934,
+        "Modified":  "2025-03-18 09:43",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[DIE Alignment]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Params_SystemInfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  2363,
+        "Modified":  "2025-03-18 09:43",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[SystemParams]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Params_WaferInfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  1376,
+        "Modified":  "2025-03-18 09:43",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[Path]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\ProductInfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  3191,
+        "Modified":  "2026-04-09 22:26",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[AutoFocus]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Recipe.ini",
+        "Ext":  ".ini",
+        "SizeB":  4140,
+        "Modified":  "2026-04-08 18:06",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[AutoCycle]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\ReferencesInfo.json",
+        "Ext":  ".json",
+        "SizeB":  240,
+        "Modified":  "2026-04-07 17:53",
+        "Created":  "2026-04-07 17:43",
+        "FirstLine":  "{",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\RTP.txt",
+        "Ext":  ".txt",
+        "SizeB":  14288,
+        "Modified":  "2025-03-18 10:02",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[PostProcess]   ; Zone name",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\SamplingMetrology.ini",
+        "Ext":  ".ini",
+        "SizeB":  73,
+        "Modified":  "2025-03-18 09:34",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\ScanOverlapLog.txt",
+        "Ext":  ".txt",
+        "SizeB":  450,
+        "Modified":  "2026-04-08 18:05",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "Scan 2d Overlap [px], [um]; Pixel size = 3.407, 3.41",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\ScanOverviewImage_Recipes-AllMags.txt",
+        "Ext":  ".txt",
+        "SizeB":  321,
+        "Modified":  "2025-03-18 09:44",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[ScanOverviewImage]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\ScenarioMetadataGrab.xml",
+        "Ext":  ".xml",
+        "SizeB":  5679,
+        "Modified":  "2025-03-18 10:08",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "\u003cMultiOpticsScenarioGrabConfiguration VersionNumber=\"2.0\"\u003e",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\ScenariosMetadatas.ini",
+        "Ext":  ".ini",
+        "SizeB":  1543,
+        "Modified":  "2025-03-18 11:53",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\UniqueArea.ini",
+        "Ext":  ".ini",
+        "SizeB":  375,
+        "Modified":  "2025-03-18 09:41",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Wafer2Table.ini",
+        "Ext":  ".ini",
+        "SizeB":  1123,
+        "Modified":  "2026-04-08 18:05",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[WAFER ALIGNMENT]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\WaferDataReadSettings.xml",
+        "Ext":  ".xml",
+        "SizeB":  195,
+        "Modified":  "2025-03-18 09:34",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "\u003c?xml version=\"1.0\"?\u003e",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Waferinfo.ini",
+        "Ext":  ".ini",
+        "SizeB":  702,
+        "Modified":  "2026-04-09 22:13",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[Robot]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\WaferMapRecipe.ini",
+        "Ext":  ".ini",
+        "SizeB":  882,
+        "Modified":  "2025-11-13 13:42",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[GENERAL]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\zones.ini",
+        "Ext":  ".ini",
+        "SizeB":  459,
+        "Modified":  "2025-03-18 09:57",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\zones.txt",
+        "Ext":  ".txt",
+        "SizeB":  410,
+        "Modified":  "2025-03-18 09:57",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "ScaleX =    1.0000000000; ScaleY =    1.0000000000",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\ZoomLevels.ini",
+        "Ext":  ".ini",
+        "SizeB":  210,
+        "Modified":  "2025-03-18 09:38",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[ZOOM_LEVELS]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\.dc_cache\\TransactionsHistory.ini",
+        "Ext":  ".ini",
+        "SizeB":  366,
+        "Modified":  "2025-03-18 10:04",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[DeprecatedInV0]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\AMITA1\\OpticsPreset.ini",
+        "Ext":  ".ini",
+        "SizeB":  74,
+        "Modified":  "2026-04-08 18:01",
+        "Created":  "2026-04-07 17:54",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\DebugAFMapping\\FocusMappingDebug_AllMags.txt",
+        "Ext":  ".txt",
+        "SizeB":  6996,
+        "Modified":  "2025-03-18 11:57",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "Id  ,   ,Match Score,AF Score,Final Score,     dZ, Range,Zchuck0, Zchuck, Zstage",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\FocusMapping\\FocusMapping.ini",
+        "Ext":  ".ini",
+        "SizeB":  2363,
+        "Modified":  "2026-04-07 17:46",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[Mode]",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\FocusMapping\\FocusPointsForScan.xml",
+        "Ext":  ".xml",
+        "SizeB":  8675,
+        "Modified":  "2025-03-18 11:53",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "\u003cFocusPointsCollection VersionNumber=\"0.0\" FocusPointsCount=\"50\" ModelsStamp=\"0-",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\FocusMapping\\Model_37d9cf47-950c-4c44-a2db-dd44fd15275d\\FocusModel.ini",
+        "Ext":  ".ini",
+        "SizeB":  277,
+        "Modified":  "2025-03-18 11:53",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\OpticLightMetadata\\config.ini",
+        "Ext":  ".ini",
+        "SizeB":  550,
+        "Modified":  "2026-04-08 18:05",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\ReferenceBackup\\ZoomLevels.ini",
+        "Ext":  ".ini",
+        "SizeB":  210,
+        "Modified":  "2025-03-18 09:38",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[ZOOM_LEVELS]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\SW_QA-3\\OpticsPreset.ini",
+        "Ext":  ".ini",
+        "SizeB":  115,
+        "Modified":  "2025-03-18 09:38",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[RobotSetup]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\TrainData\\Die.ini",
+        "Ext":  ".ini",
+        "SizeB":  1120,
+        "Modified":  "2025-03-18 09:38",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[DIE]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\TrainData\\DieRefToTrain.txt",
+        "Ext":  ".txt",
+        "SizeB":  277,
+        "Modified":  "2025-03-18 09:38",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[DieRefToTrainImage]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\TrainData\\FrameToChuck.ini",
+        "Ext":  ".ini",
+        "SizeB":  160,
+        "Modified":  "2025-03-18 09:37",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[FrameToChuck]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\TrainData\\ZonesVectorInfo.csv",
+        "Ext":  ".csv",
+        "SizeB":  373,
+        "Modified":  "2025-03-18 09:57",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "ID,zone,X,Y,SizeX,SizeY,ShapeType,Angle,Is3d",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\TrainData\\DieImage\\DieImageToTable.ini",
+        "Ext":  ".ini",
+        "SizeB":  250,
+        "Modified":  "2025-03-18 09:37",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[DieImageToTable]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\TrainData\\DieImage\\ZoomLevels.ini",
+        "Ext":  ".ini",
+        "SizeB":  215,
+        "Modified":  "2026-04-07 18:13",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[ZOOM_LEVELS]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\TrainData\\ReferenceBackup\\ZoomLevels.ini",
+        "Ext":  ".ini",
+        "SizeB":  79,
+        "Modified":  "2025-03-18 09:37",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[ZOOM_LEVELS]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\WaferAlignData\\AlignmentData.ini",
+        "Ext":  ".ini",
+        "SizeB":  31,
+        "Modified":  "2026-04-08 18:05",
+        "Created":  "2026-04-08 18:05",
+        "FirstLine":  "[General]",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\WaferAlignData\\AlignmentStatisticsTime.txt",
+        "Ext":  ".txt",
+        "SizeB":  164,
+        "Modified":  "2026-04-08 18:05",
+        "Created":  "2026-04-08 18:05",
+        "FirstLine":  "Alignment Statistics",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\WaferAlignData\\Alignment_PatFindRtp.txt",
+        "Ext":  ".txt",
+        "SizeB":  742,
+        "Modified":  "2026-04-08 18:05",
+        "Created":  "2026-04-08 18:05",
+        "FirstLine":  "",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\WaferAlignData\\Alignment_PatRes.txt",
+        "Ext":  ".txt",
+        "SizeB":  1429,
+        "Modified":  "2026-04-08 18:05",
+        "Created":  "2026-04-08 18:05",
+        "FirstLine":  "",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\WaferAlignData\\Alignment_Stat.txt",
+        "Ext":  ".txt",
+        "SizeB":  1410,
+        "Modified":  "2026-04-08 18:05",
+        "Created":  "2026-04-08 18:05",
+        "FirstLine":  "",
+        "Continuous":  "No"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Zones\\Pad.ini",
+        "Ext":  ".ini",
+        "SizeB":  5683,
+        "Modified":  "2025-03-18 10:00",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Zones\\PostProcess.ini",
+        "Ext":  ".ini",
+        "SizeB":  2190,
+        "Modified":  "2025-03-18 10:00",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Zones\\Prob.ini",
+        "Ext":  ".ini",
+        "SizeB":  5684,
+        "Modified":  "2025-03-18 10:00",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Zones\\RDL.ini",
+        "Ext":  ".ini",
+        "SizeB":  5684,
+        "Modified":  "2025-03-18 10:00",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Zones\\Scan Area.ini",
+        "Ext":  ".ini",
+        "SizeB":  5690,
+        "Modified":  "2025-03-18 10:00",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    },
+    {
+        "FullPath":  "C:\\job\\ValidationJob\\300mm\\Recipes\\AllMags\\Zones\\Solder.ini",
+        "Ext":  ".ini",
+        "SizeB":  5686,
+        "Modified":  "2025-03-18 10:00",
+        "Created":  "2026-04-07 17:40",
+        "FirstLine":  "[General]",
+        "Continuous":  "Yes"
+    }
+]
