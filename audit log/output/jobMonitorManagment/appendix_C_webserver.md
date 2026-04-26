@@ -321,6 +321,8 @@ Client                   JobsEndpoints          ManifestReader       File System
 
 ### GET /api/jobs/{jobName}/events (list item — no content)
 
+`fileDescription` and `changeSummary` are included in list responses because they are not sensitive (unlike `oldContent`/`diffText`) and are the primary driver of user-friendly display.
+
 ```json
 {
   "id": 38,
@@ -332,7 +334,9 @@ Client                   JobsEndpoints          ManifestReader       File System
   "ownerService": "RMS",
   "monitorPriority": "P1",
   "machineName": "FALCON-02",
-  "sha256Hash": "e5f6a7b8c9d0e1f2..."
+  "sha256Hash": "e5f6a7b8c9d0e1f2...",
+  "fileDescription": "Top-level recipe control file governing auto-cycle behavior — autofocus and clean-reference frequencies, post-processing flags, and recipe identity.",
+  "changeSummary": "Autofocus frequency: 1 → 3; Die-level post-processing: 0 → 1"
 }
 ```
 
@@ -350,8 +354,10 @@ Client                   JobsEndpoints          ManifestReader       File System
   "monitorPriority": "P1",
   "machineName": "FALCON-02",
   "sha256Hash": "e5f6a7b8c9d0e1f2...",
-  "oldContent": "[Recipe]\nVersion=4\nThreshold=120\n...",
-  "diffText": "@@ -2,3 +2,3 @@\n Version=4\n-Threshold=120\n+Threshold=135\n ScanSpeed=50\n"
+  "fileDescription": "Top-level recipe control file governing auto-cycle behavior — autofocus and clean-reference frequencies, post-processing flags, and recipe identity.",
+  "changeSummary": "Autofocus frequency: 1 → 3; Die-level post-processing: 0 → 1",
+  "oldContent": "[AutoCycle]\nAutoFocusEvery=1\nEnableDieLevelPostProcessing=0\n...",
+  "diffText": "@@ -1,3 +1,3 @@\n [AutoCycle]\n-AutoFocusEvery=1\n+AutoFocusEvery=3\n-EnableDieLevelPostProcessing=0\n+EnableDieLevelPostProcessing=1\n"
 }
 ```
 
@@ -374,7 +380,8 @@ FROM audit_log;
 ```sql
 SELECT
     id, changed_at, event_type, filepath, rel_filepath,
-    module, owner_service, monitor_priority, machine_name, sha256_hash
+    module, owner_service, monitor_priority, machine_name, sha256_hash,
+    file_description, change_summary
 FROM audit_log
 WHERE
     (@module   IS NULL OR module            = @module)
@@ -543,4 +550,87 @@ Option 3: Reverse proxy (production / multi-machine dashboard)
 │ Path traversal       │ rel_filepath param must be validated against        │
 │                      │ regex  ^[\w\-. \\\/]+$  before use in query        │
 └──────────────────────┴────────────────────────────────────────────────────┘
+```
+
+---
+
+## C.14 — Web Server Model Classes [MODIFIED]
+
+The two DTO models updated to carry `FileDescription` and `ChangeSummary`.
+
+### `Models/AuditEventSummary.cs` — list item (no content fields)
+
+```csharp
+namespace FalconAuditWebServer.Models;
+
+public record AuditEventSummary
+{
+    public long   Id              { get; init; }
+    public string ChangedAt       { get; init; } = "";
+    public string EventType       { get; init; } = "";
+    public string Filepath        { get; init; } = "";
+    public string RelFilepath     { get; init; } = "";
+    public string Module          { get; init; } = "";
+    public string OwnerService    { get; init; } = "";
+    public string MonitorPriority { get; init; } = "";
+    public string MachineName     { get; init; } = "";
+    public string Sha256Hash      { get; init; } = "";
+    public string FileDescription { get; init; } = "";   // human-readable file purpose
+    public string ChangeSummary   { get; init; } = "";   // human-readable change summary
+}
+```
+
+### `Models/AuditEventDetail.cs` — single event (includes sensitive content fields)
+
+```csharp
+namespace FalconAuditWebServer.Models;
+
+public record AuditEventDetail
+{
+    public long    Id              { get; init; }
+    public string  ChangedAt       { get; init; } = "";
+    public string  EventType       { get; init; } = "";
+    public string  Filepath        { get; init; } = "";
+    public string  RelFilepath     { get; init; } = "";
+    public string  Module          { get; init; } = "";
+    public string  OwnerService    { get; init; } = "";
+    public string  MonitorPriority { get; init; } = "";
+    public string  MachineName     { get; init; } = "";
+    public string  Sha256Hash      { get; init; } = "";
+    public string  FileDescription { get; init; } = "";   // human-readable file purpose
+    public string  ChangeSummary   { get; init; } = "";   // human-readable change summary
+    public string? OldContent      { get; init; }         // P1 only (sensitive)
+    public string? DiffText        { get; init; }         // P1 Modified only (sensitive)
+}
+```
+
+### `Services/QueryRepository.cs` — reader mapping (relevant excerpt)
+
+```csharp
+// In GetEvents() — map new columns from the paginated SELECT:
+new AuditEventSummary
+{
+    Id              = r.GetInt64(0),
+    ChangedAt       = r.GetString(1),
+    EventType       = r.GetString(2),
+    Filepath        = r.GetString(3),
+    RelFilepath     = r.GetString(4),
+    Module          = r.GetString(5),
+    OwnerService    = r.GetString(6),
+    MonitorPriority = r.GetString(7),
+    MachineName     = r.GetString(8),
+    Sha256Hash      = r.GetString(9),
+    FileDescription = r.IsDBNull(10) ? "" : r.GetString(10),
+    ChangeSummary   = r.IsDBNull(11) ? "" : r.GetString(11)
+}
+
+// In GetEvent(id) — map new columns in the full SELECT:
+new AuditEventDetail
+{
+    // ... same as above plus:
+    FileDescription = r.IsDBNull(10) ? "" : r.GetString(10),
+    ChangeSummary   = r.IsDBNull(11) ? "" : r.GetString(11),
+    OldContent      = r.IsDBNull(12) ? null : r.GetString(12),
+    DiffText        = r.IsDBNull(13) ? null : r.GetString(13)
+}
 ```
