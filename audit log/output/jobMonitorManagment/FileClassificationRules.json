@@ -10,14 +10,15 @@
       "description": "Global machine-state singleton updated continuously by Falcon.Net on every program/state transition; records the active job, product, and recipe." },
 
     // ── Job-level files ────────────────────────────────────────────────────────
-    { "pattern": "c:\\job\\*\\Metadata.ini",
-      "matchType": "glob", "module": "Job", "ownerService": "RMS", "monitorPriority": "P1",
-      "shortName": "Job identity",
-      "description": "Top-level job identity file storing the human-readable job name, unique GUID, version counter, and optional free-text tag. Written by RMS at job creation." },
+    // Most-specific (deeper) patterns must precede shallower ones — first match wins.
     { "pattern": "c:\\job\\**\\Metadata.ini",
       "matchType": "glob", "module": "Job", "ownerService": "RMS", "monitorPriority": "P1",
       "shortName": "Setup identity",
       "description": "Setup-level identity file recording the setup name, GUID, version, and last active recipe. Written by RMS at setup creation." },
+    { "pattern": "c:\\job\\*\\Metadata.ini",
+      "matchType": "glob", "module": "Job", "ownerService": "RMS", "monitorPriority": "P1",
+      "shortName": "Job identity",
+      "description": "Top-level job identity file storing the human-readable job name, unique GUID, version counter, and optional free-text tag. Written by RMS at job creation." },
     { "pattern": "c:\\job\\**\\ProductionInfo.ini",
       "matchType": "glob", "module": "Job", "ownerService": "RMS", "monitorPriority": "P1",
       "shortName": "Wafer production statistics",

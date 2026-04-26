@@ -205,7 +205,7 @@ Client                 FileHistoryEndpoints    QueryRepository         SQLite Sh
   │                          │                       │ SELECT * FROM         │
   │                          │                       │   audit_log           │
   │                          │                       │ WHERE rel_filepath    │
-  │                          │                       │   LIKE @p             │
+  │                          │                       │   = @p                │
   │                          │                       │ ORDER BY changed_at   │
   │                          │                       │   ASC                 │
   │                          │                       │──────────────────────►│
@@ -391,7 +391,7 @@ WHERE
     AND (@machine  IS NULL OR machine_name     = @machine)
     AND (@from     IS NULL OR changed_at      >= @from)
     AND (@to       IS NULL OR changed_at      <= @to)
-    AND (@path     IS NULL OR filepath        LIKE '%' || @path || '%')
+    AND (@path     IS NULL OR instr(filepath, @path) > 0)
 ORDER BY changed_at DESC
 LIMIT @pageSize OFFSET @offset;
 ```
@@ -407,7 +407,7 @@ WHERE
     AND (@machine  IS NULL OR machine_name     = @machine)
     AND (@from     IS NULL OR changed_at      >= @from)
     AND (@to       IS NULL OR changed_at      <= @to)
-    AND (@path     IS NULL OR filepath        LIKE '%' || @path || '%');
+    AND (@path     IS NULL OR instr(filepath, @path) > 0);
 ```
 
 ### Full file history (single file, oldest-first)
@@ -538,19 +538,45 @@ Option 3: Reverse proxy (production / multi-machine dashboard)
 │ Network binding      │ Bind to 127.0.0.1 (loopback) by default;           │
 │                      │ expose on LAN only when explicitly configured       │
 ├──────────────────────┼────────────────────────────────────────────────────┤
-│ Authentication       │ Windows Authentication (IIS/Kestrel) for LAN use;  │
-│                      │ API key header for automated tooling                │
+│ Authentication       │ Windows Authentication implemented in Program.cs    │
+│                      │ (see snippet below); single-event endpoint          │
+│                      │ restricted to Auditor role (protects old_content)   │
 ├──────────────────────┼────────────────────────────────────────────────────┤
 │ Read-only guarantee  │ SQLite Mode=ReadOnly; no INSERT/UPDATE/DELETE       │
 │                      │ routes exposed                                      │
 ├──────────────────────┼────────────────────────────────────────────────────┤
-│ old_content exposure │ P1 file content may contain recipe IP — restrict   │
-│                      │ single-event endpoint to authorised roles only      │
+│ old_content exposure │ P1 file content may contain recipe IP — single-    │
+│                      │ event endpoint requires [Authorize(Roles="Auditor")]│
 ├──────────────────────┼────────────────────────────────────────────────────┤
-│ Path traversal       │ rel_filepath param must be validated against        │
-│                      │ regex  ^[\w\-. \\\/]+$  before use in query        │
+│ Path traversal       │ rel_filepath decoded from URL, then validated:      │
+│                      │ Path.GetFullPath(rel).StartsWith(jobRoot)           │
+│                      │ before use in query (regex ^[\w\-. \\\/]+$ is      │
+│                      │ insufficient — it permits "..\..\" sequences)      │
 └──────────────────────┴────────────────────────────────────────────────────┘
 ```
+
+**Authentication middleware (Program.cs snippet):**
+
+```csharp
+using Microsoft.AspNetCore.Authentication.Negotiate;
+using Microsoft.AspNetCore.Authorization;
+
+builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
+    .AddNegotiate();
+builder.Services.AddAuthorization(o =>
+{
+    o.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+    o.AddPolicy("AuditorOnly", p => p.RequireRole("Auditor"));
+});
+
+// ... after app.Build():
+app.UseAuthentication();
+app.UseAuthorization();
+```
+
+Apply `[Authorize(Policy = "AuditorOnly")]` to the single-event endpoint handler that returns `old_content`.
 
 ---
 
@@ -601,6 +627,7 @@ public record AuditEventDetail
     public string  ChangeSummary   { get; init; } = "";   // human-readable change summary
     public string? OldContent      { get; init; }         // P1 only (sensitive)
     public string? DiffText        { get; init; }         // P1 Modified only (sensitive)
+    public string? OldFilepath     { get; init; }         // populated for Renamed events only
 }
 ```
 

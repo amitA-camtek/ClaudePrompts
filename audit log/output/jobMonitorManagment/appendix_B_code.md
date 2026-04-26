@@ -50,19 +50,16 @@ Files marked **[NEW]**, **[MODIFIED]**, or **[UNCHANGED]**.
 
 Changes from `04_recommended_design.md`: `DbPath` now points to `global.db`; `ClassificationRulesPath` added.
 
+> **Config source of truth:** Operational config (debounce_ms, capture_content, max_content_bytes, etc.) is stored in the `monitor_config` SQLite table loaded by `SqliteRepository.LoadConfig()`. The `appsettings.json` file contains only path overrides that make sense as environment-level settings — these override the SQL values when present.
+
 ```json
 {
-  "monitor_config": {
-    "watch_path":                   "C:\\job\\",
-    "global_db_path":               "C:\\bis\\auditlog\\global.db",
-    "classification_rules_path":    "C:\\bis\\auditlog\\FileClassificationRules.json",
-    "parameter_descriptions_path":  "C:\\bis\\auditlog\\ParameterDescriptions.json",
-    "api_port":                     5100,
-    "api_bind_address":          "127.0.0.1",
-    "debounce_ms":               500,
-    "fsw_buffer_bytes":          65536,
-    "max_content_bytes":         1048576,
-    "capture_content":           true
+  "AuditService": {
+    // Path overrides only — all other settings live in the monitor_config SQL table.
+    // To change debounce_ms, max_content_bytes, etc., update the monitor_config table directly.
+    "GlobalDbPath":              "C:\\bis\\auditlog\\global.db",
+    "ClassificationRulesPath":   "C:\\bis\\auditlog\\FileClassificationRules.json",
+    "ParameterDescriptionsPath": "C:\\bis\\auditlog\\ParameterDescriptions.json"
   },
   "Serilog": {
     "MinimumLevel": { "Default": "Information" },
@@ -108,6 +105,8 @@ public record AuditLogEntry
     public string  Sha256Hash       { get; init; } = "";
     public string  FileDescription  { get; init; } = "";   // human-readable file purpose
     public string  ChangeSummary    { get; init; } = "";   // human-readable change summary
+    public bool    IsBackfill       { get; init; } = false; // true when written by CatchUpScanner
+    public string? OldFilepath      { get; init; }          // populated for Renamed events only
 }
 ```
 
@@ -149,6 +148,7 @@ public class MonitorConfig
     public long   MaxContentBytes            { get; set; } = 1_048_576;
     public bool   CaptureContent             { get; set; } = true;
     public int    CatchUpYieldThreshold      { get; set; } = 50;
+    public int    RecoveryDelayMs            { get; set; } = 30_000;  // delay before full re-hash after FSW overflow
     public string MachineName                { get; set; } = Environment.MachineName;   // REC-006 (#26)
 }
 ```
@@ -204,21 +204,75 @@ public class HistoryEntry
 
 ---
 
-## B.7 — `ContentCache.cs` [UNCHANGED]
+## B.7 — `ContentCache.cs` [MODIFIED]
+
+Changes: replaced unbounded `ConcurrentDictionary` with a size-bounded LRU cache to prevent unbounded memory growth on long-running services with hundreds of large recipes.
 
 ```csharp
 namespace FalconAuditService;
 
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 
+/// <summary>
+/// Thread-safe LRU cache for P1 file content. Evicts oldest entries when the
+/// total byte estimate exceeds MaxBytes. Each char is counted as 2 bytes.
+/// </summary>
 public class ContentCache
 {
-    private readonly ConcurrentDictionary<string, string> _store =
+    private readonly long _maxBytes;
+    private long _totalBytes;
+    private readonly Dictionary<string, LinkedListNode<(string key, string value)>> _map =
         new(StringComparer.OrdinalIgnoreCase);
+    private readonly LinkedList<(string key, string value)> _order = new();
+    private readonly object _lock = new();
 
-    public void    Set(string path, string content) => _store[path] = content;
-    public string? Get(string path)                 => _store.TryGetValue(path, out var v) ? v : null;
-    public void    Remove(string path)              => _store.TryRemove(path, out _);
+    public ContentCache(long maxBytes = 200L * 1024 * 1024)   // 200 MB default
+    {
+        _maxBytes = maxBytes;
+    }
+
+    public void Set(string path, string content)
+    {
+        long newBytes = content.Length * 2L;
+        lock (_lock)
+        {
+            if (_map.TryGetValue(path, out var existing))
+            {
+                _totalBytes -= existing.Value.value.Length * 2L;
+                _order.Remove(existing);
+                _map.Remove(path);
+            }
+
+            while (_totalBytes + newBytes > _maxBytes && _order.Count > 0)
+            {
+                var oldest = _order.First!;
+                _totalBytes -= oldest.Value.value.Length * 2L;
+                _map.Remove(oldest.Value.key);
+                _order.RemoveFirst();
+            }
+
+            var node = _order.AddLast((path, content));
+            _map[path] = node;
+            _totalBytes += newBytes;
+        }
+    }
+
+    public string? Get(string path)
+    {
+        lock (_lock)
+            return _map.TryGetValue(path, out var node) ? node.Value.value : null;
+    }
+
+    public void Remove(string path)
+    {
+        lock (_lock)
+        {
+            if (!_map.TryGetValue(path, out var node)) return;
+            _totalBytes -= node.Value.value.Length * 2L;
+            _order.Remove(node);
+            _map.Remove(path);
+        }
+    }
 }
 ```
 
@@ -281,8 +335,8 @@ public static class DiffHelper
         string?  oldText,
         string?  newText,
         string   fileName,
-        DateTime oldTime,
-        DateTime newTime)
+        DateTime oldTime = default,
+        DateTime newTime = default)
     {
         if (oldText is null || newText is null) return null;
 
@@ -302,8 +356,10 @@ public static class DiffHelper
         }
 
         var sb    = new StringBuilder();
-        sb.AppendLine($"--- {fileName}  {oldTime:O} (before)");
-        sb.AppendLine($"+++ {fileName}  {newTime:O} (after)");
+        var oldTs = oldTime == default ? "" : $"  {oldTime:O}";
+        var newTs = newTime == default ? "" : $"  {newTime:O}";
+        sb.AppendLine($"--- {fileName}{oldTs} (before)");
+        sb.AppendLine($"+++ {fileName}{newTs} (after)");
 
         int oldNo = 1, newNo = 1, i2 = 0;
 
@@ -422,6 +478,8 @@ public class FileClassifier : IDisposable
                     "",
                     ruleset.DefaultClassification.ShortName   ?? "Unknown file",
                     ruleset.DefaultClassification.Description ?? "Unclassified file change.");
+            else  // reset to fallback if default block removed from config
+                _default = new ClassificationResult("Unknown", "Unknown", "P3", "", "Unknown file", "Unclassified file change.");
 
             _logger.LogInformation("FileClassifier: loaded {N} rules from {P}",
                 compiled.Count, configPath);
@@ -611,8 +669,10 @@ public class ChangeDescriptionEnricher : IDisposable
     public string Enrich(string matchedPattern, string eventType, string? diffText)
     {
         if (eventType == "Created")  return "File created";
-        if (eventType == "Deleted")  return "File deleted";
-        if (eventType == "Renamed")  return "File renamed";
+        if (eventType == "Deleted")  return $"File deleted: {Path.GetFileName(matchedPattern)}";
+        if (eventType == "Renamed")  return !string.IsNullOrEmpty(diffText)
+            ? $"File renamed: {diffText}"
+            : "File renamed";
         if (string.IsNullOrEmpty(diffText)) return "File modified";
 
         var changes = ParseDiffChanges(diffText);
@@ -786,7 +846,9 @@ public class SqliteRepository : IDisposable
                 old_content      TEXT    NULL,
                 diff_text        TEXT    NULL,
                 file_description TEXT    NOT NULL DEFAULT '',
-                change_summary   TEXT    NOT NULL DEFAULT ''
+                change_summary   TEXT    NOT NULL DEFAULT '',
+                is_backfill      INTEGER NOT NULL DEFAULT 0,
+                old_filepath     TEXT    NULL
             );
 
             CREATE INDEX IF NOT EXISTS ix_audit_log_changed_at        ON audit_log (changed_at DESC);
@@ -797,6 +859,7 @@ public class SqliteRepository : IDisposable
             CREATE INDEX IF NOT EXISTS ix_audit_log_owner_service     ON audit_log (owner_service);
             CREATE INDEX IF NOT EXISTS ix_audit_log_rel_filepath      ON audit_log (rel_filepath);
             CREATE INDEX IF NOT EXISTS ix_audit_log_module_changed_at ON audit_log (module, changed_at DESC);
+            CREATE INDEX IF NOT EXISTS ix_audit_log_filepath          ON audit_log (filepath);
 
             CREATE TABLE IF NOT EXISTS file_baselines (
                 filepath     TEXT PRIMARY KEY,
@@ -810,8 +873,13 @@ public class SqliteRepository : IDisposable
                 key   TEXT PRIMARY KEY,
                 value TEXT NOT NULL
             );
-            INSERT OR IGNORE INTO schema_meta (key, value) VALUES ('schema_version', '2');
+            INSERT OR IGNORE INTO schema_meta (key, value) VALUES ('schema_version', '3');
             INSERT OR IGNORE INTO schema_meta (key, value) VALUES ('audit_db_version', '1');
+
+            CREATE TABLE IF NOT EXISTS monitor_config (
+                key   TEXT PRIMARY KEY,
+                value TEXT NOT NULL
+            );
             INSERT OR IGNORE INTO schema_meta (key, value) VALUES
                 ('created_at_utc', strftime('%Y-%m-%dT%H:%M:%fZ','now'));
         ";
@@ -821,9 +889,8 @@ public class SqliteRepository : IDisposable
         MigrateSchema();
     }
 
-    // Adds file_description and change_summary to databases created before schema v2.
-    // ALTER TABLE ADD COLUMN is idempotent-safe only via try/catch; SQLite does not support
-    // IF NOT EXISTS on ADD COLUMN. Existing rows get the DEFAULT '' value.
+    // Migrates databases created before the current schema version.
+    // ALTER TABLE ADD COLUMN is idempotent-safe only via try/catch (SQLite has no IF NOT EXISTS).
     private void MigrateSchema()
     {
         var version = 1;
@@ -833,10 +900,27 @@ public class SqliteRepository : IDisposable
             var raw = qv.ExecuteScalar()?.ToString();
             if (int.TryParse(raw, out var v)) version = v;
         }
-        if (version >= 2) return;
 
-        foreach (var col in new[] { "file_description TEXT NOT NULL DEFAULT ''",
-                                    "change_summary   TEXT NOT NULL DEFAULT ''" })
+        if (version < 2)
+        {
+            AlterTableAddColumns(new[] { "file_description TEXT NOT NULL DEFAULT ''",
+                                         "change_summary   TEXT NOT NULL DEFAULT ''" });
+            SetSchemaVersion(2);
+            _logger.LogInformation("SqliteRepository: migrated schema to v2 (file_description, change_summary).");
+        }
+
+        if (version < 3)
+        {
+            AlterTableAddColumns(new[] { "is_backfill  INTEGER NOT NULL DEFAULT 0",
+                                          "old_filepath TEXT NULL" });
+            SetSchemaVersion(3);
+            _logger.LogInformation("SqliteRepository: migrated schema to v3 (is_backfill, old_filepath).");
+        }
+    }
+
+    private void AlterTableAddColumns(string[] columnDefs)
+    {
+        foreach (var col in columnDefs)
         {
             try
             {
@@ -844,12 +928,20 @@ public class SqliteRepository : IDisposable
                 ac.CommandText = $"ALTER TABLE audit_log ADD COLUMN {col}";
                 ac.ExecuteNonQuery();
             }
-            catch (Exception) { /* column already exists — ignore */ }
+            catch (SqliteException ex) when (
+                ex.Message.Contains("duplicate column name", StringComparison.OrdinalIgnoreCase))
+            {
+                // column already exists — safe to continue
+            }
         }
+    }
+
+    private void SetSchemaVersion(int version)
+    {
         using var uv = _conn.CreateCommand();
-        uv.CommandText = "INSERT OR REPLACE INTO schema_meta (key,value) VALUES ('schema_version','2')";
+        uv.CommandText = "INSERT OR REPLACE INTO schema_meta (key,value) VALUES ('schema_version',@v)";
+        uv.Parameters.AddWithValue("@v", version.ToString());
         uv.ExecuteNonQuery();
-        _logger.LogInformation("SqliteRepository: migrated schema to v2 (added file_description, change_summary).");
     }
 
     // ── audit_log ────────────────────────────────────────────────────────────
@@ -866,8 +958,8 @@ public class SqliteRepository : IDisposable
                 INSERT INTO audit_log
                   (changed_at, event_type, filepath, rel_filepath, module, owner_service,
                    monitor_priority, machine_name, sha256_hash, old_content, diff_text,
-                   file_description, change_summary)
-                VALUES (@ca,@et,@fp,@rfp,@mod,@svc,@pri,@mn,@hash,@oc,@dt,@fd,@cs)";
+                   file_description, change_summary, is_backfill, old_filepath)
+                VALUES (@ca,@et,@fp,@rfp,@mod,@svc,@pri,@mn,@hash,@oc,@dt,@fd,@cs,@ib,@ofp)";
             ins.Parameters.AddWithValue("@ca",  e.ChangedAt);
             ins.Parameters.AddWithValue("@et",  e.EventType);
             ins.Parameters.AddWithValue("@fp",  e.Filepath);
@@ -877,10 +969,12 @@ public class SqliteRepository : IDisposable
             ins.Parameters.AddWithValue("@pri", e.MonitorPriority);
             ins.Parameters.AddWithValue("@mn",  e.MachineName);
             ins.Parameters.AddWithValue("@hash",e.Sha256Hash);
-            ins.Parameters.AddWithValue("@oc",  (object?)e.OldContent      ?? DBNull.Value);
-            ins.Parameters.AddWithValue("@dt",  (object?)e.DiffText        ?? DBNull.Value);
+            ins.Parameters.AddWithValue("@oc",  (object?)e.OldContent   ?? DBNull.Value);
+            ins.Parameters.AddWithValue("@dt",  (object?)e.DiffText     ?? DBNull.Value);
             ins.Parameters.AddWithValue("@fd",  e.FileDescription);
             ins.Parameters.AddWithValue("@cs",  e.ChangeSummary);
+            ins.Parameters.AddWithValue("@ib",  e.IsBackfill ? 1 : 0);
+            ins.Parameters.AddWithValue("@ofp", (object?)e.OldFilepath  ?? DBNull.Value);
             await ins.ExecuteNonQueryAsync();
 
             using var upb = _conn.CreateCommand();
@@ -901,6 +995,93 @@ public class SqliteRepository : IDisposable
             tx.Commit();
         }
         finally { _writeLock.Release(); }
+    }
+
+    /// <summary>Update a baseline entry without writing an audit event (used for unchanged files in CatchUpScanner).</summary>
+    public async Task UpsertBaselineAsync(FileBaseline baseline)
+    {
+        await _writeLock.WaitAsync();
+        try
+        {
+            using var cmd = _conn.CreateCommand();
+            cmd.CommandText = @"
+                INSERT INTO file_baselines (filepath, last_hash, last_seen, last_content)
+                VALUES (@fp, @lh, @ls, @lc)
+                ON CONFLICT(filepath) DO UPDATE SET
+                  last_hash    = excluded.last_hash,
+                  last_seen    = excluded.last_seen,
+                  last_content = excluded.last_content";
+            cmd.Parameters.AddWithValue("@fp", baseline.Filepath);
+            cmd.Parameters.AddWithValue("@lh", baseline.LastHash);
+            cmd.Parameters.AddWithValue("@ls", baseline.LastSeen);
+            cmd.Parameters.AddWithValue("@lc", (object?)baseline.LastContent ?? DBNull.Value);
+            await cmd.ExecuteNonQueryAsync();
+        }
+        finally { _writeLock.Release(); }
+    }
+
+    /// <summary>
+    /// Load MonitorConfig from the monitor_config table.
+    /// Inserts defaults on first run (empty table) so the row-set always exists.
+    /// </summary>
+    public MonitorConfig LoadConfig()
+    {
+        var defaults = new MonitorConfig();
+        var data = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["watch_path"]                  = defaults.WatchPath,
+            ["global_db_path"]              = defaults.GlobalDbPath,
+            ["classification_rules_path"]   = defaults.ClassificationRulesPath,
+            ["parameter_descriptions_path"] = defaults.ParameterDescriptionsPath,
+            ["api_port"]                    = defaults.ApiPort.ToString(),
+            ["api_bind_address"]            = defaults.ApiBindAddress,
+            ["debounce_ms"]                 = defaults.DebounceMs.ToString(),
+            ["fsw_buffer_bytes"]            = defaults.FswBufferBytes.ToString(),
+            ["max_content_bytes"]           = defaults.MaxContentBytes.ToString(),
+            ["capture_content"]             = defaults.CaptureContent.ToString(),
+            ["catch_up_yield_threshold"]    = defaults.CatchUpYieldThreshold.ToString(),
+            ["recovery_delay_ms"]           = defaults.RecoveryDelayMs.ToString()
+        };
+
+        // Insert defaults on first run (INSERT OR IGNORE — does not overwrite user settings)
+        _writeLock.Wait();
+        try
+        {
+            using var tx = _conn.BeginTransaction();
+            foreach (var (k, v) in data)
+            {
+                using var ins = _conn.CreateCommand();
+                ins.Transaction = tx;
+                ins.CommandText = "INSERT OR IGNORE INTO monitor_config (key, value) VALUES (@k, @v)";
+                ins.Parameters.AddWithValue("@k", k);
+                ins.Parameters.AddWithValue("@v", v);
+                ins.ExecuteNonQuery();
+            }
+            tx.Commit();
+        }
+        finally { _writeLock.Release(); }
+
+        // Read all config (may now include user-edited values)
+        using var cmd = _readConn.CreateCommand();
+        cmd.CommandText = "SELECT key, value FROM monitor_config";
+        using var r = cmd.ExecuteReader();
+        while (r.Read()) data[r.GetString(0)] = r.GetString(1);
+
+        var cfg = new MonitorConfig();
+        if (data.TryGetValue("watch_path",                  out var s)) cfg.WatchPath                 = s;
+        if (data.TryGetValue("global_db_path",              out s))     cfg.GlobalDbPath               = s;
+        if (data.TryGetValue("classification_rules_path",   out s))     cfg.ClassificationRulesPath    = s;
+        if (data.TryGetValue("parameter_descriptions_path", out s))     cfg.ParameterDescriptionsPath  = s;
+        if (data.TryGetValue("api_bind_address",            out s))     cfg.ApiBindAddress             = s;
+        if (data.TryGetValue("api_port",           out s) && int.TryParse(s,  out var i)) cfg.ApiPort                  = i;
+        if (data.TryGetValue("debounce_ms",        out s) && int.TryParse(s,  out i))     cfg.DebounceMs               = i;
+        if (data.TryGetValue("fsw_buffer_bytes",   out s) && int.TryParse(s,  out i))     cfg.FswBufferBytes           = i;
+        if (data.TryGetValue("catch_up_yield_threshold", out s) && int.TryParse(s, out i)) cfg.CatchUpYieldThreshold   = i;
+        if (data.TryGetValue("recovery_delay_ms",  out s) && int.TryParse(s,  out i))     cfg.RecoveryDelayMs         = i;
+        if (data.TryGetValue("max_content_bytes",  out s) && long.TryParse(s, out var l)) cfg.MaxContentBytes         = l;
+        if (data.TryGetValue("capture_content",    out s) && bool.TryParse(s, out var b)) cfg.CaptureContent          = b;
+        // MachineName always reflects the actual machine — not from stored config
+        return cfg;
     }
 
     // ── file_baselines ───────────────────────────────────────────────────────
@@ -993,25 +1174,28 @@ public class ShardRegistry : IDisposable
     /// Return the SqliteRepository for a job, creating it on first call.
     /// The shard file lives at &lt;jobPath&gt;\.audit\audit.db.
     /// Returns null if the shard cannot be opened (REL-007); callers must null-check.
+    /// Failures are NOT cached — the next event for the same job will retry.
     /// </summary>
     public SqliteRepository? GetOrCreate(string jobName, string jobPath)
     {
-        return _shards.GetOrAdd(jobName, _ =>
+        // Fast path: already open
+        if (_shards.TryGetValue(jobName, out var existing)) return existing;
+
+        var auditDir = Path.Combine(jobPath, ".audit");
+        var dbPath   = Path.Combine(auditDir, "audit.db");
+        try
         {
-            var auditDir = Path.Combine(jobPath, ".audit");
-            var dbPath   = Path.Combine(auditDir, "audit.db");
-            try
-            {
-                Directory.CreateDirectory(auditDir);
-                _logger.LogInformation("ShardRegistry: opening shard for job '{J}' at {D}", jobName, dbPath);
-                return new SqliteRepository(dbPath, _loggerFactory.CreateLogger<SqliteRepository>());
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "ShardRegistry: failed to open shard for {J}; skipping. DB={D}", jobName, dbPath);
-                return null!;   // GetOrCreate callers must null-check
-            }
-        });
+            Directory.CreateDirectory(auditDir);
+            _logger.LogInformation("ShardRegistry: opening shard for job '{J}' at {D}", jobName, dbPath);
+            var repo = new SqliteRepository(dbPath, _loggerFactory.CreateLogger<SqliteRepository>());
+            _shards.TryAdd(jobName, repo);   // if two threads raced, one wins; loser discards
+            return _shards[jobName];         // return whichever won
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "ShardRegistry: failed to open shard for {J}; NOT cached. DB={D}", jobName, dbPath);
+            return null;   // do NOT cache — next event will retry
+        }
     }
 
     public bool TryGet(string jobName, out SqliteRepository? repo) =>
@@ -1098,40 +1282,46 @@ public class ManifestManager
         var manifestPath = Path.Combine(auditDir, "manifest.json");
         var jobName      = Path.GetFileName(jobPath.TrimEnd('\\', '/'));
 
-        var manifest = ReadManifest(manifestPath) ?? new JobManifest
+        var sem = LockFor(manifestPath);
+        sem.Wait();
+        try
         {
-            JobName  = jobName,
-            Created  = new MachineTimestamp { Machine = machineName, At = DateTime.UtcNow }
-        };
-
-        var last = manifest.History.LastOrDefault();
-
-        // If last entry is from a different machine and still open, close it
-        if (last?.To == null && !string.Equals(last?.Machine, machineName,
-                                                StringComparison.OrdinalIgnoreCase))
-        {
-            last!.To = DateTime.UtcNow;
-            _logger.LogInformation("ManifestManager: closed entry for {M} on job '{J}'.",
-                                    last.Machine, jobName);
-        }
-
-        // Open new entry for this machine if needed
-        if (last == null || !string.Equals(last.Machine, machineName,
-                                            StringComparison.OrdinalIgnoreCase)
-                         || last.To != null)
-        {
-            manifest.History.Add(new HistoryEntry
+            var manifest = ReadManifest(manifestPath) ?? new JobManifest
             {
-                Machine = machineName,
-                From    = DateTime.UtcNow,
-                To      = null,
-                Events  = 0
-            });
-            _logger.LogInformation(
-                "ManifestManager: opened entry for {M} on job '{J}'.", machineName, jobName);
-        }
+                JobName  = jobName,
+                Created  = new MachineTimestamp { Machine = machineName, At = DateTime.UtcNow }
+            };
 
-        WriteManifest(manifestPath, manifest);
+            var last = manifest.History.LastOrDefault();
+
+            // If last entry is from a different machine and still open, close it
+            if (last?.To == null && !string.Equals(last?.Machine, machineName,
+                                                    StringComparison.OrdinalIgnoreCase))
+            {
+                last!.To = DateTime.UtcNow;
+                _logger.LogInformation("ManifestManager: closed entry for {M} on job '{J}'.",
+                                        last.Machine, jobName);
+            }
+
+            // Open new entry for this machine if needed
+            if (last == null || !string.Equals(last.Machine, machineName,
+                                                StringComparison.OrdinalIgnoreCase)
+                             || last.To != null)
+            {
+                manifest.History.Add(new HistoryEntry
+                {
+                    Machine = machineName,
+                    From    = DateTime.UtcNow,
+                    To      = null,
+                    Events  = 0
+                });
+                _logger.LogInformation(
+                    "ManifestManager: opened entry for {M} on job '{J}'.", machineName, jobName);
+            }
+
+            WriteManifest(manifestPath, manifest);
+        }
+        finally { sem.Release(); }
     }
 
     /// <summary>
@@ -1141,18 +1331,25 @@ public class ManifestManager
     public void RecordDeparture(string jobPath)
     {
         var manifestPath = Path.Combine(jobPath, ".audit", "manifest.json");
-        var manifest     = ReadManifest(manifestPath);
-        if (manifest is null) return;
 
-        var last = manifest.History.LastOrDefault();
-        if (last?.To == null)
+        var sem = LockFor(manifestPath);
+        sem.Wait();
+        try
         {
-            last!.To = DateTime.UtcNow;
-            WriteManifest(manifestPath, manifest);
-            _logger.LogInformation(
-                "ManifestManager: departure recorded for job '{J}'.",
-                Path.GetFileName(jobPath.TrimEnd('\\', '/')));
+            var manifest = ReadManifest(manifestPath);
+            if (manifest is null) return;
+
+            var last = manifest.History.LastOrDefault();
+            if (last?.To == null)
+            {
+                last!.To = DateTime.UtcNow;
+                WriteManifest(manifestPath, manifest);
+                _logger.LogInformation(
+                    "ManifestManager: departure recorded for job '{J}'.",
+                    Path.GetFileName(jobPath.TrimEnd('\\', '/')));
+            }
         }
+        finally { sem.Release(); }
     }
 
     private JobManifest? ReadManifest(string path)
@@ -1176,7 +1373,15 @@ public class ManifestManager
         try
         {
             File.WriteAllText(tmp, JsonSerializer.Serialize(manifest, _jsonOpts));
-            File.Move(tmp, path, overwrite: true);   // atomic on NTFS
+
+            // File.Move(overwrite) is atomic on NTFS only when src and dst are on the same volume.
+            if (!string.Equals(Path.GetPathRoot(tmp), Path.GetPathRoot(path),
+                                StringComparison.OrdinalIgnoreCase))
+                _logger.LogWarning(
+                    "ManifestManager: temp and target are on different volumes — " +
+                    "manifest write is not atomic. Move job to local NTFS for reliable auditing.");
+
+            File.Move(tmp, path, overwrite: true);
         }
         catch (Exception ex)
         {
@@ -1400,6 +1605,9 @@ public class FileChangeHandler
                 changeType = "Renamed";
                 oldContent = baseline?.LastContent ?? _contentCache.Get(ev.OldPath ?? ev.FullPath);
                 newHash    = HashHelper.ComputeSha256(ev.FullPath);
+                diffText   = ev.OldPath is not null
+                    ? $"{Path.GetFileName(ev.OldPath)} → {Path.GetFileName(ev.FullPath)}"
+                    : null;
                 if (ev.OldPath is not null)
                 {
                     await repo.DeleteBaselineAsync(ev.OldPath);
@@ -1431,7 +1639,8 @@ public class FileChangeHandler
             MachineName     = _config.MachineName,
             Sha256Hash      = newHash ?? oldHash ?? "",
             FileDescription = cls.Description,
-            ChangeSummary   = _enricher.Enrich(cls.MatchedPattern, changeType, diffText)
+            ChangeSummary   = _enricher.Enrich(cls.MatchedPattern, changeType, diffText),
+            OldFilepath     = changeType == "Renamed" ? ev.OldPath : null
         };
 
         var bl = MakeBaseline(ev.FullPath, newHash ?? oldHash ?? "", oldContent);
@@ -1524,8 +1733,10 @@ using Microsoft.Extensions.Logging;
 
 public class FileMonitorService : IDisposable
 {
-    private FileSystemWatcher?                             _watcher;
-    private readonly ConcurrentDictionary<string, Timer>  _debounce = new();
+    private FileSystemWatcher?                                     _watcher;
+    private readonly ConcurrentDictionary<string, Timer>           _debounce    = new();
+    private readonly ConcurrentDictionary<string, FileSystemEventArgs> _latestEvent = new();
+    private int _recoveryScheduled;
     private readonly Channel<ChangeEvent> _queue = Channel.CreateBounded<ChangeEvent>(
         new BoundedChannelOptions(1024)
         {
@@ -1600,9 +1811,15 @@ public class FileMonitorService : IDisposable
     private void OnFileEvent(object _, FileSystemEventArgs e)
     {
         _logger.LogDebug("FSW event received. Type={T} Path={P}", e.ChangeType, e.FullPath);
+        // Always record the latest event so FireDebounce dispatches the most recent change type.
+        _latestEvent[e.FullPath] = e;
         _debounce.AddOrUpdate(
             e.FullPath,
-            key => new Timer(FireDebounce, e, _config.DebounceMs, Timeout.Infinite),
+            key =>
+            {
+                _logger.LogDebug("FSW debounce created. Path={P}", key);
+                return new Timer(FireDebounce, key, _config.DebounceMs, Timeout.Infinite);
+            },
             (key, existing) =>
             {
                 existing.Change(_config.DebounceMs, Timeout.Infinite);
@@ -1622,9 +1839,10 @@ public class FileMonitorService : IDisposable
 
     private void FireDebounce(object? state)
     {
-        var e = (FileSystemEventArgs)state!;
-        if (_debounce.TryRemove(e.FullPath, out var t)) t.Dispose();
-        _logger.LogDebug("Debounce fired. Path={P}  Enqueued.", e.FullPath);
+        var key = (string)state!;
+        if (_debounce.TryRemove(key, out var t)) t.Dispose();
+        if (!_latestEvent.TryRemove(key, out var e)) return;   // should always succeed
+        _logger.LogDebug("Debounce fired. Path={P} FinalType={T}  Enqueued.", key, e.ChangeType);
         _ = TryEnqueueAsync(new ChangeEvent(e.FullPath, e.ChangeType, DateTime.UtcNow));
     }
 
@@ -1633,7 +1851,17 @@ public class FileMonitorService : IDisposable
         _logger.LogWarning("FSW buffer overflow or error: {M}. Restarting watcher.",
                             e.GetException().Message);
         InitWatcher();
-        _ = Task.Run(() => _catchUp.RunAllJobsParallelAsync(_ct));
+
+        // Debounce the recovery scan: coalesce rapid overflow events into a single full re-hash.
+        if (Interlocked.Exchange(ref _recoveryScheduled, 1) == 0)
+        {
+            _ = Task.Delay(_config.RecoveryDelayMs, _ct).ContinueWith(_ =>
+            {
+                Interlocked.Exchange(ref _recoveryScheduled, 0);
+                _logger.LogInformation("FSW overflow recovery: starting catch-up scan.");
+                _ = _catchUp.RunAllJobsParallelAsync(_ct);
+            }, TaskScheduler.Default);
+        }
     }
 
     private async Task TryEnqueueAsync(ChangeEvent ev)
@@ -1666,6 +1894,7 @@ public class FileMonitorService : IDisposable
     {
         _watcher?.Dispose();
         foreach (var t in _debounce.Values) t.Dispose();
+        _latestEvent.Clear();
     }
 }
 ```
@@ -1684,13 +1913,14 @@ using Microsoft.Extensions.Logging;
 
 public class CatchUpScanner
 {
-    private readonly ShardRegistry    _shards;
-    private readonly SqliteRepository _globalRepo;
-    private readonly FileClassifier   _classifier;
-    private readonly ContentCache     _contentCache;
-    private readonly MonitorConfig    _config;
-    private readonly ILogger<CatchUpScanner> _logger;
-    private readonly SemaphoreSlim    _guard = new(1, 1);
+    private readonly ShardRegistry             _shards;
+    private readonly SqliteRepository          _globalRepo;
+    private readonly FileClassifier            _classifier;
+    private readonly ContentCache              _contentCache;
+    private readonly ChangeDescriptionEnricher _enricher;
+    private readonly MonitorConfig             _config;
+    private readonly ILogger<CatchUpScanner>   _logger;
+    private readonly SemaphoreSlim             _guard = new(1, 1);
 
     private static readonly HashSet<string> IncludedExts =
         new(StringComparer.OrdinalIgnoreCase)
@@ -1702,12 +1932,14 @@ public class CatchUpScanner
 
     public CatchUpScanner(ShardRegistry shards, SqliteRepository globalRepo,
                            FileClassifier classifier, ContentCache contentCache,
+                           ChangeDescriptionEnricher enricher,
                            MonitorConfig config, ILogger<CatchUpScanner> logger)
     {
         _shards       = shards;
         _globalRepo   = globalRepo;
         _classifier   = classifier;
         _contentCache = contentCache;
+        _enricher     = enricher;
         _config       = config;
         _logger       = logger;
     }
@@ -1805,21 +2037,31 @@ public class CatchUpScanner
             var fileRepo = GetRepo(path);
             baselineMap.TryGetValue(path, out var bl);
 
+            var rel = MakeRelPath(path);
             if (bl is null)
             {
                 string? content = await ReadIfP1Async(path, cls.MonitorPriority, size);
                 if (content is not null) _contentCache.Set(path, content);
 
-                await fileRepo.InsertAuditLogAsync(new AuditLogEntry
+                var entry = new AuditLogEntry
                 {
-                    Filepath = path, Filename = Path.GetFileName(path),
-                    Extension = Path.GetExtension(path).ToLowerInvariant(),
-                    ChangeType = "Created", NewHash = hash, NewContent = content,
-                    Module = cls.Module, OwnerService = cls.OwnerService,
+                    Filepath        = path,
+                    RelFilepath     = rel,
+                    EventType       = "Created",
+                    Sha256Hash      = hash,
+                    OldContent      = content,
+                    Module          = cls.Module,
+                    OwnerService    = cls.OwnerService,
                     MonitorPriority = cls.MonitorPriority,
-                    DetectedAt = DateTime.UtcNow.ToString("O"),
-                    MachineName = _config.MachineName, Note = "catch-up"
-                });
+                    ChangedAt       = DateTime.UtcNow.ToString("O"),
+                    MachineName     = _config.MachineName,
+                    FileDescription = cls.Description,
+                    ChangeSummary   = _enricher.Enrich(cls.MatchedPattern, "Created", null),
+                    IsBackfill      = true
+                };
+                var baseline = new FileBaseline { Filepath = path, LastHash = hash,
+                    LastSeen = DateTime.UtcNow.ToString("O"), LastContent = content };
+                await fileRepo.InsertAuditEventAsync(entry, baseline);
                 created++;
             }
             else if (hash != bl.LastHash)
@@ -1827,36 +2069,50 @@ public class CatchUpScanner
                 string? newContent = await ReadIfP1Async(path, cls.MonitorPriority, size);
                 if (newContent is not null) _contentCache.Set(path, newContent);
 
-                await fileRepo.InsertAuditLogAsync(new AuditLogEntry
+                string? diffText = null;
+                if (cls.MonitorPriority == "P1" && bl.LastContent is not null && newContent is not null)
+                    diffText = DiffHelper.UnifiedDiff(bl.LastContent, newContent, Path.GetFileName(path));
+
+                var entry = new AuditLogEntry
                 {
-                    Filepath = path, Filename = Path.GetFileName(path),
-                    Extension = Path.GetExtension(path).ToLowerInvariant(),
-                    ChangeType = "Modified", OldHash = bl.LastHash, NewHash = hash,
-                    NewContent = newContent,
-                    Module = cls.Module, OwnerService = cls.OwnerService,
+                    Filepath        = path,
+                    RelFilepath     = rel,
+                    EventType       = "Modified",
+                    Sha256Hash      = hash,
+                    OldContent      = bl.LastContent,
+                    DiffText        = diffText,
+                    Module          = cls.Module,
+                    OwnerService    = cls.OwnerService,
                     MonitorPriority = cls.MonitorPriority,
-                    DetectedAt = DateTime.UtcNow.ToString("O"),
-                    MachineName = _config.MachineName, Note = "catch-up"
-                });
+                    ChangedAt       = DateTime.UtcNow.ToString("O"),
+                    MachineName     = _config.MachineName,
+                    FileDescription = cls.Description,
+                    ChangeSummary   = _enricher.Enrich(cls.MatchedPattern, "Modified", diffText),
+                    IsBackfill      = true
+                };
+                var baseline = new FileBaseline { Filepath = path, LastHash = hash,
+                    LastSeen = DateTime.UtcNow.ToString("O"), LastContent = newContent };
+                await fileRepo.InsertAuditEventAsync(entry, baseline);
                 modified++;
             }
             else
             {
-                if (cls.MonitorPriority == "P1" && _config.StoreContentP1 &&
+                if (cls.MonitorPriority == "P1" && _config.CaptureContent &&
                     size <= _config.MaxContentBytes)
                 {
                     var content = await ReadIfP1Async(path, cls.MonitorPriority, size);
                     if (content is not null) _contentCache.Set(path, content);
                 }
+                // No audit event for unchanged files — just refresh LastSeen
+                await fileRepo.UpsertBaselineAsync(new FileBaseline
+                {
+                    Filepath    = path,
+                    LastHash    = hash,
+                    LastSeen    = DateTime.UtcNow.ToString("O"),
+                    LastContent = bl.LastContent
+                });
                 unchanged++;
             }
-
-            await fileRepo.UpsertBaselineAsync(new FileBaseline
-            {
-                Filepath = path, LastHash = hash,
-                LastSeen = DateTime.UtcNow.ToString("O"), LastSize = size,
-                Module = cls.Module, MonitorPriority = cls.MonitorPriority
-            });
         }
 
         // ── Phase 2: detect deletions ────────────────────────────────────────
@@ -1866,15 +2122,28 @@ public class CatchUpScanner
             if (currentSet.Contains(bl.Filepath)) continue;
 
             var fileRepo = GetRepo(bl.Filepath);
-            await fileRepo.InsertAuditLogAsync(new AuditLogEntry
+            var cls2     = _classifier.Classify(bl.Filepath);
+            var entry2 = new AuditLogEntry
             {
-                Filepath = bl.Filepath, Filename = Path.GetFileName(bl.Filepath),
-                Extension = Path.GetExtension(bl.Filepath).ToLowerInvariant(),
-                ChangeType = "Deleted", OldHash = bl.LastHash,
-                Module = bl.Module, MonitorPriority = bl.MonitorPriority,
-                DetectedAt = DateTime.UtcNow.ToString("O"),
-                MachineName = _config.MachineName, Note = "catch-up"
-            });
+                Filepath        = bl.Filepath,
+                RelFilepath     = MakeRelPath(bl.Filepath),
+                EventType       = "Deleted",
+                Sha256Hash      = bl.LastHash,
+                OldContent      = bl.LastContent,
+                Module          = cls2.Module,
+                OwnerService    = cls2.OwnerService,
+                MonitorPriority = cls2.MonitorPriority,
+                ChangedAt       = DateTime.UtcNow.ToString("O"),
+                MachineName     = _config.MachineName,
+                FileDescription = cls2.Description,
+                ChangeSummary   = _enricher.Enrich(cls2.MatchedPattern, "Deleted", null),
+                IsBackfill      = true
+            };
+            var dummyBaseline = new FileBaseline
+            {
+                Filepath = bl.Filepath, LastHash = bl.LastHash, LastSeen = bl.LastSeen
+            };
+            await fileRepo.InsertAuditEventAsync(entry2, dummyBaseline);
             await fileRepo.DeleteBaselineAsync(bl.Filepath);
             _contentCache.Remove(bl.Filepath);
             deleted++;
@@ -1900,7 +2169,15 @@ public class CatchUpScanner
 
         var jobName = relative[..sep];
         var jobPath = Path.Combine(watch, jobName);
-        return _shards.GetOrCreate(jobName, jobPath);
+        return _shards.GetOrCreate(jobName, jobPath) ?? _globalRepo;
+    }
+
+    private string MakeRelPath(string filePath)
+    {
+        var watch = _config.WatchPath.TrimEnd('\\', '/');
+        return filePath.StartsWith(watch, StringComparison.OrdinalIgnoreCase)
+            ? filePath[(watch.Length)..].TrimStart('\\', '/')
+            : filePath;
     }
 
     private async Task<List<FileBaseline>> GetAllBaselinesAsync(List<string> currentFiles)
@@ -2083,13 +2360,18 @@ try
                     sp.GetRequiredService<Microsoft.Extensions.Logging.ILogger<SqliteRepository>>());
             });
 
-            // MonitorConfig loaded from monitor_config table in global DB
+            // MonitorConfig primary source: monitor_config SQL table (survives reinstalls).
+            // appsettings.json AuditService section provides path overrides only.
             services.AddSingleton(sp =>
             {
                 var cfg = sp.GetRequiredService<SqliteRepository>().LoadConfig();
-                // appsettings.json overrides (if present) take priority
-                var rulesPath = ctx.Configuration["AuditService:ClassificationRulesPath"];
-                if (!string.IsNullOrEmpty(rulesPath)) cfg.ClassificationRulesPath = rulesPath;
+                var section = ctx.Configuration.GetSection("AuditService");
+                var rulesPath  = section["ClassificationRulesPath"];
+                var paramPath  = section["ParameterDescriptionsPath"];
+                var globalPath = section["GlobalDbPath"];
+                if (!string.IsNullOrEmpty(rulesPath))  cfg.ClassificationRulesPath   = rulesPath;
+                if (!string.IsNullOrEmpty(paramPath))   cfg.ParameterDescriptionsPath = paramPath;
+                if (!string.IsNullOrEmpty(globalPath))  cfg.GlobalDbPath              = globalPath;
                 return cfg;
             });
 
@@ -2123,17 +2405,17 @@ try
                 var config   = sp.GetRequiredService<MonitorConfig>();
                 var shards   = sp.GetRequiredService<ShardRegistry>();
                 var manifest = sp.GetRequiredService<ManifestManager>();
-                var catchUp  = sp.GetRequiredService<CatchUpScanner>();
                 var logger   = sp.GetRequiredService<Microsoft.Extensions.Logging.ILogger<DirectoryWatcher>>();
 
                 return new DirectoryWatcher(
                     config.WatchPath,
                     onArrived: (jobName, jobPath) =>
                     {
+                        // Open the shard and record arrival only.
+                        // Catch-up scanning is handled by the single RunAllJobsParallelAsync
+                        // call in Worker.ExecuteAsync — do NOT start a second per-job scan here.
                         shards.GetOrCreate(jobName, jobPath);
                         manifest.RecordArrival(jobPath, config.MachineName);
-                        _ = Task.Run(() => catchUp.RunAsync(config.WatchPath,
-                                                             CancellationToken.None, jobPath));
                     },
                     onDeparted: (jobName) =>
                     {
@@ -2215,12 +2497,15 @@ if ($Action -eq 'Install') {
         Write-Host "Installed ParameterDescriptions.json to $DbDir"
     }
 
-    # SECURITY NOTE: Replace LocalSystem with a low-privilege service account
-    # that has read access to C:\job\ and write access to C:\bis\auditlog\ only.
+    # Grant the virtual service account least-privilege access (read on C:\job\, write on C:\bis\auditlog\)
+    icacls "C:\job"           /grant "NT SERVICE\FalconAuditSvc:(OI)(CI)R" /T | Out-Null
+    icacls "C:\bis\auditlog"  /grant "NT SERVICE\FalconAuditSvc:(OI)(CI)M" /T | Out-Null
+    Write-Host "ACLs set for NT SERVICE\FalconAuditSvc."
+
     sc.exe create $ServiceName `
         binPath= "`"$ExePath`"" `
         start=   auto `
-        obj=     LocalSystem
+        obj=     "NT SERVICE\FalconAuditSvc"
 
     sc.exe description $ServiceName $Description
     sc.exe failure      $ServiceName reset= 86400 actions= restart/5000/restart/10000/restart/30000
